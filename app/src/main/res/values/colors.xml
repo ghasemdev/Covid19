@@ -1,10 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+    <!--Light-->
+    <color name="colorPrimary">#4c84FF</color>
+    <color name="colorPrimaryDark">#F0F0F0</color>
+    <color name="colorAccent">#18a3fe</color>
+
+    <!--color for background-->
+    <color name="background">#FFFFFF</color>
+    <color name="popup_background">#fcfcfc</color>
+    <color name="selected_background">#1A18A3FE</color>
+
+    <!--color for icon-->
+    <color name="icon_color">#FF000000</color>
+
+    <!--color for text -->
+    <color name="color_primary_text">#000000</color>
+    <color name="color_secondary_text">#232323</color>
+
+    <!--color for divider -->
+    <color name="color_divider">#ECECEC</color>
+    <color name="color_divider2">#a6a6a6</color>
+
+    <!--color for button -->
+    <color name="gradient_start_color">#4c84ff</color>
+    <color name="gradient_end_color">#18a3fe</color>
+    <color name="button_pressed">#18a3fe</color>
+
+    <!--//////////////////////////////////////////////////////////////////////////////////////////-->
+    <!--Dark-->
+    <color name="dark_colorPrimary">#212121</color>
+    <color name="dark_colorPrimaryDark">#1F1B24</color>
+    <color name="dark_colorAccent">#7D53C6</color>
+
+    <!--color for background-->
+    <color name="dark_background">#121212</color>
+    <color name="dark_popup_background">#1f1f1f</color>
+    <color name="dark_selected_background">#1A7D53C6</color>
+
+    <!--color for icon-->
+    <color name="dark_icon_color">#FFFFFFFF</color>
+
+    <!--color for text -->
+    <color name="dark_color_primary_text">#FFFFFF</color>
+    <color name="dark_color_secondary_text">#FDFDFD</color>
+
+    <!--color for divider -->
+    <color name="dark_color_divider">#424242</color>
+    <color name="dark_color_divider2">#afb0b1</color>
+
+    <!--color for button -->
+    <color name="dark_gradient_start_color">#673AB7</color>
+    <color name="dark_gradient_end_color">#7D53C6</color>
+    <color name="dark_button_pressed">#7D53C6</color>
 </resources>
