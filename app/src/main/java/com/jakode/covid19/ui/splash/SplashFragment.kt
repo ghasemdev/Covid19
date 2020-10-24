@@ -7,28 +7,38 @@ import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.jakode.covid19.R
-import com.jakode.covid19.databinding.FragmentSplashBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.properties.Delegates
 
+@AndroidEntryPoint
 class SplashFragment : Fragment(R.layout.fragment_splash) {
-    private var _binding: FragmentSplashBinding? = null
-    private val binding get() = _binding!!
+    private val viewModel by viewModels<SplashViewModel>()
+    private var state by Delegates.notNull<Boolean>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding = FragmentSplashBinding.bind(view)
+
         fullScreen() // Full screen size
+        observe() // Observe state
         navigate() // Navigate to other page
+    }
+
+    private fun observe() {
+        viewModel.state.observe(viewLifecycleOwner, { state ->
+            this.state = state
+        })
     }
 
     private fun navigate() {
         viewLifecycleOwner.lifecycleScope.launch {
             delay(5000)
-            if (true)
+            if (state)
                 findNavController().navigate(R.id.action_splashFragment_to_homeFragment)
             else
                 findNavController().navigate(R.id.action_splashFragment_to_introFragment)
@@ -49,10 +59,5 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
                     View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
             }
         }
-    }
-
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
     }
 }
