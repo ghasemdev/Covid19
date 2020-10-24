@@ -8,6 +8,7 @@ import android.view.WindowInsetsController
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.jakode.covid19.R
 import com.jakode.covid19.databinding.FragmentSplashBinding
 import kotlinx.coroutines.delay
@@ -27,10 +28,10 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
     private fun navigate() {
         viewLifecycleOwner.lifecycleScope.launch {
             delay(5000)
-//            if (UserState(requireContext()).mode)
-//                findNavController().navigate(R.id.action_splashFragment_to_mainFragment)
-//            else
-//                findNavController().navigate(R.id.action_splashFragment_to_signInFragment)
+            if (true)
+                findNavController().navigate(R.id.action_splashFragment_to_homeFragment)
+            else
+                findNavController().navigate(R.id.action_splashFragment_to_introFragment)
         }
     }
 
