@@ -11,13 +11,15 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.jakode.covid19.R
+import com.jakode.covid19.ui.MainActivity
+import com.jakode.covid19.utils.OnBackPressedListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.properties.Delegates
 
 @AndroidEntryPoint
-class SplashFragment : Fragment(R.layout.fragment_splash) {
+class SplashFragment : Fragment(R.layout.fragment_splash), OnBackPressedListener {
     private val viewModel by viewModels<SplashViewModel>()
     private var state by Delegates.notNull<Boolean>()
 
@@ -27,6 +29,9 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
         fullScreen() // Full screen size
         navigate() // Navigate to other page
         observe() // Observe state
+
+        // impalement onBackPressed
+        (activity as MainActivity).setOnBackPressedListener(this)
     }
 
     private fun observe() {
@@ -60,4 +65,6 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
             }
         }
     }
+
+    override fun onBackPressed() = false
 }

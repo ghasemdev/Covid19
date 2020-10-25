@@ -8,11 +8,16 @@ import android.view.WindowInsetsController
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import com.jakode.covid19.R
+import com.jakode.covid19.ui.MainActivity
+import com.jakode.covid19.utils.OnBackPressedListener
 
-class HomeFragment : Fragment(R.layout.fragment_home) {
+class HomeFragment : Fragment(R.layout.fragment_home), OnBackPressedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showStatusBar() // Show ui system
+
+        // impalement onBackPressed
+        (activity as MainActivity).setOnBackPressedListener(this)
     }
 
     private fun showStatusBar() {
@@ -27,4 +32,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
         }
     }
+
+    override fun onBackPressed() = true
 }

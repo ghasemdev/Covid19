@@ -9,21 +9,20 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.jakode.covid19.R
 import com.jakode.covid19.databinding.FragmentIntroBinding
+import com.jakode.covid19.ui.MainActivity
+import com.jakode.covid19.utils.OnBackPressedListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class IntroFragment : Fragment(R.layout.fragment_intro) {
+class IntroFragment : Fragment(R.layout.fragment_intro), OnBackPressedListener {
     private val viewModel by viewModels<IntroViewModel>()
 
     private var _binding: FragmentIntroBinding? = null
     private val binding get() = _binding!!
 
     // Set pages fragment as list
-    private val pages = listOf(
-        WashYourHands(),
-        WearMask(),
-        UseNoseRag()
-    )
+    private var _pages: List<Fragment>? = listOf(WashYourHands(), WearMask(), UseNoseRag())
+    private val pages get() = _pages!!
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -57,6 +56,9 @@ class IntroFragment : Fragment(R.layout.fragment_intro) {
 
         // onClickListener
         onClickListenerManager()
+
+        // impalement onBackPressed
+        (activity as MainActivity).setOnBackPressedListener(this)
     }
 
     private fun onClickListenerManager() {
@@ -106,7 +108,19 @@ class IntroFragment : Fragment(R.layout.fragment_intro) {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
+        _pages = null
         _binding = null
+        super.onDestroyView()
+    }
+
+    override fun onBackPressed(): Boolean {
+        var position = binding.viewPager.currentItem
+        return if (position != 0) { // Back to previous page
+            position--
+            binding.viewPager.currentItem = position
+            false
+        } else {
+            true
+        }
     }
 }

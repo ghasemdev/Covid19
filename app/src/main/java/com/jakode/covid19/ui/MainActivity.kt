@@ -7,12 +7,14 @@ import androidx.appcompat.app.AppCompatActivity
 import com.jakode.covid19.R
 import com.jakode.covid19.model.Global
 import com.jakode.covid19.utils.DataState
+import com.jakode.covid19.utils.OnBackPressedListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val viewModel: MainViewModel by viewModels()
+    private lateinit var onBackPressedListener: OnBackPressedListener
 
     @ExperimentalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,5 +35,14 @@ class MainActivity : AppCompatActivity() {
 //                }
 //            }
 //        })
+    }
+
+    // This function is called by fragments
+    fun setOnBackPressedListener(onBackPressedListener: OnBackPressedListener) {
+        this.onBackPressedListener = onBackPressedListener
+    }
+
+    override fun onBackPressed() {
+        if (onBackPressedListener.onBackPressed()) super.onBackPressed()
     }
 }
