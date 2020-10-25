@@ -3,11 +3,11 @@
 
     <style name="Theme.Covid19" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/dark_colorPrimary</item>
-        <item name="colorPrimaryDark">@color/dark_background</item>
-        <item name="colorAccent">@color/dark_colorAccent</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/background</item>
+        <item name="colorAccent">@color/colorAccent</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/dark_background</item>
+        <item name="android:statusBarColor">@color/background</item>
         <!-- Customize your theme here. -->
 
         <!-- API 23 (android 6)-->

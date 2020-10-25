@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Dark-->
+    <color name="colorPrimary">#212121</color>
+    <color name="colorPrimaryDark">#1F1B24</color>
+    <color name="colorAccent">#7D53C6</color>
+
+    <!--color for background-->
+    <color name="background">#121212</color>
+    <color name="popup_background">#1f1f1f</color>
+    <color name="selected_background">#1A7D53C6</color>
+
+    <!--color for icon-->
+    <color name="icon_color">#FFFFFFFF</color>
+
+    <!--color for text -->
+    <color name="color_primary_text">#FFFFFF</color>
+    <color name="color_secondary_text">#FDFDFD</color>
+
+    <!--color for divider -->
+    <color name="color_divider">#424242</color>
+    <color name="color_divider2">#afb0b1</color>
+
+    <!--color for button -->
+    <color name="gradient_start_color">#673AB7</color>
+    <color name="gradient_end_color">#7D53C6</color>
+    <color name="button_pressed">#7D53C6</color>
+</resources>

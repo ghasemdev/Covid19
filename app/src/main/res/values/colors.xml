@@ -3,7 +3,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <!--//////////////////////////////////////////////////////////////////////////////////////////-->
     <!--Light-->
     <color name="colorPrimary">#4c84FF</color>
     <color name="colorPrimaryDark">#F0F0F0</color>
@@ -11,6 +10,7 @@
 
     <!--color for background-->
     <color name="background">#FFFFFF</color>
+    <color name="intro_background">#FFFBF5</color>
     <color name="popup_background">#fcfcfc</color>
     <color name="selected_background">#1A18A3FE</color>
 
@@ -30,30 +30,6 @@
     <color name="gradient_end_color">#18a3fe</color>
     <color name="button_pressed">#18a3fe</color>
 
-    <!--//////////////////////////////////////////////////////////////////////////////////////////-->
-    <!--Dark-->
-    <color name="dark_colorPrimary">#212121</color>
-    <color name="dark_colorPrimaryDark">#1F1B24</color>
-    <color name="dark_colorAccent">#7D53C6</color>
-
-    <!--color for background-->
-    <color name="dark_background">#121212</color>
-    <color name="dark_popup_background">#1f1f1f</color>
-    <color name="dark_selected_background">#1A7D53C6</color>
-
-    <!--color for icon-->
-    <color name="dark_icon_color">#FFFFFFFF</color>
-
-    <!--color for text -->
-    <color name="dark_color_primary_text">#FFFFFF</color>
-    <color name="dark_color_secondary_text">#FDFDFD</color>
-
-    <!--color for divider -->
-    <color name="dark_color_divider">#424242</color>
-    <color name="dark_color_divider2">#afb0b1</color>
-
-    <!--color for button -->
-    <color name="dark_gradient_start_color">#673AB7</color>
-    <color name="dark_gradient_end_color">#7D53C6</color>
-    <color name="dark_button_pressed">#7D53C6</color>
+    <!--color indicator-->
+    <color name="tab_indicator_gray">#c0c0c0</color>
 </resources>

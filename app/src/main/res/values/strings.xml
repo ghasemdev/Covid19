@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Covid19</string>
+
+    <string name="skip">Skip</string>
+    <string name="next_step">Next Step</string>
+    <string name="start_now">Start Now</string>
+
+    <string name="wear_mask_title">Wear Mask</string>
+    <string name="wear_mask_desc">Cover mouth and nose with mask &amp; no gaps between your face and the mask.</string>
+    <string name="wash_hand_title">Wash Your Hands</string>
+    <string name="wash_hand_desc">Clean your hands often. Use soap and water, or an alcohol-based hand rub.</string>
+    <string name="use_nose_rag_title">Use Nose Rag</string>
+    <string name="use_nose_rag_desc">Cover your nose and mouth with your bent elbow or a tissue when you cough.</string>
+
 </resources>
