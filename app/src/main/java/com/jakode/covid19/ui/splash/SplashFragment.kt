@@ -25,8 +25,8 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
         super.onViewCreated(view, savedInstanceState)
 
         fullScreen() // Full screen size
-        observe() // Observe state
         navigate() // Navigate to other page
+        observe() // Observe state
     }
 
     private fun observe() {
@@ -37,7 +37,7 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
 
     private fun navigate() {
         viewLifecycleOwner.lifecycleScope.launch {
-            delay(5000)
+            delay(2000)
             if (state)
                 findNavController().navigate(R.id.action_splashFragment_to_homeFragment)
             else

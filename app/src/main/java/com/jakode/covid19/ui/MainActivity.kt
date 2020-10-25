@@ -19,19 +19,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        viewModel.setStateEvent(MainStateEvent.GetBlogEvents)
-        viewModel.dataState.observe(this, { dataState ->
-            when (dataState) {
-                is DataState.Success<Global> -> {
-                    Log.d("TAG", "onCreate: ${dataState.data}")
-                }
-                is DataState.Error -> {
-                    Log.e("TAG", "onCreate: ${dataState.exception.message}")
-                }
-                is DataState.Loading -> {
-
-                }
-            }
-        })
+//        viewModel.setStateEvent(MainStateEvent.GetBlogEvents)
+//        viewModel.dataState.observe(this, { dataState ->
+//            when (dataState) {
+//                is DataState.Success<Global> -> {
+//                    Log.d("TAG", "onCreate: ${dataState.data}")
+//                }
+//                is DataState.Error -> {
+//                    Log.e("TAG", "onCreate: ${dataState.exception.message}")
+//                }
+//                is DataState.Loading -> {
+//
+//                }
+//            }
+//        })
     }
 }
