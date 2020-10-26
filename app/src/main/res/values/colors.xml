@@ -4,9 +4,9 @@
     <color name="white">#FFFFFFFF</color>
 
     <!--Light-->
-    <color name="colorPrimary">#4c84FF</color>
+    <color name="colorPrimary">#EF9414</color>
     <color name="colorPrimaryDark">#DFDFDF</color>
-    <color name="colorAccent">#18a3fe</color>
+    <color name="colorAccent">#F5AD47</color>
 
     <!--color for background-->
     <color name="background">#FFFFFF</color>
@@ -26,9 +26,9 @@
     <color name="color_divider2">#a6a6a6</color>
 
     <!--color for button -->
-    <color name="gradient_start_color">#4c84ff</color>
-    <color name="gradient_end_color">#18a3fe</color>
-    <color name="button_pressed">#18a3fe</color>
+    <color name="gradient_start_color">#EF9414</color>
+    <color name="gradient_end_color">#F5AD47</color>
+    <color name="button_pressed">#F5AD47</color>
 
     <!--color indicator-->
     <color name="tab_indicator_gray">#c0c0c0</color>
