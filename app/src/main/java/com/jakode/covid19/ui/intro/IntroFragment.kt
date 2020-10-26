@@ -9,6 +9,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.jakode.covid19.R
 import com.jakode.covid19.databinding.FragmentIntroBinding
+import com.jakode.covid19.model.Slider
 import com.jakode.covid19.ui.MainActivity
 import com.jakode.covid19.utils.OnBackPressedListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,13 +17,11 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class IntroFragment : Fragment(R.layout.fragment_intro), OnBackPressedListener {
     private val viewModel by viewModels<IntroViewModel>()
-
     private var _binding: FragmentIntroBinding? = null
     private val binding get() = _binding!!
 
-    // Set pages fragment as list
-    private var _pages: List<Fragment>? = listOf(WashYourHands(), WearMask(), UseNoseRag())
-    private val pages get() = _pages!!
+    private val adapterSize = 3
+    private var introSliderAdapter: IntroAdapter? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,11 +29,8 @@ class IntroFragment : Fragment(R.layout.fragment_intro), OnBackPressedListener {
 
         binding.apply {
             // Set adapter
-            viewPager.adapter = IntroAdapter(
-                pages,
-                requireActivity().supportFragmentManager,
-                lifecycle
-            )
+            initializeAdapter()
+            viewPager.adapter = introSliderAdapter
 
             // Connect tabLayout and viewPager2
             TabLayoutMediator(tabIndicator, viewPager) { _, _ -> }.attach()
@@ -46,7 +42,7 @@ class IntroFragment : Fragment(R.layout.fragment_intro), OnBackPressedListener {
                     buttonSkip.visibility =
                         if (tab!!.position == 0) View.VISIBLE else View.INVISIBLE
                     // Last page load animation and when back to previous page unload animation
-                    if (tab.position == pages.size - 1) loadLastScreen() else unLoadLastScreen()
+                    if (tab.position == adapterSize - 1) loadLastScreen() else unLoadLastScreen()
                 }
 
                 override fun onTabReselected(tab: TabLayout.Tab?) {}
@@ -61,25 +57,47 @@ class IntroFragment : Fragment(R.layout.fragment_intro), OnBackPressedListener {
         (activity as MainActivity).setOnBackPressedListener(this)
     }
 
+    private fun initializeAdapter() {
+        introSliderAdapter = IntroAdapter(
+            listOf(
+                Slider(
+                    icon = R.drawable.wash_your_hand,
+                    title = getString(R.string.wash_hand_title),
+                    description = getString(R.string.wash_hand_desc)
+                ),
+                Slider(
+                    icon = R.drawable.wear_mask,
+                    title = getString(R.string.wash_hand_title),
+                    description = getString(R.string.wash_hand_desc)
+                ),
+                Slider(
+                    icon = R.drawable.use_nose_rag,
+                    title = getString(R.string.use_nose_rag_title),
+                    description = getString(R.string.use_nose_rag_desc)
+                )
+            )
+        )
+    }
+
     private fun onClickListenerManager() {
         binding.apply {
             // Click skip button going to last page
             buttonSkip.setOnClickListener {
-                viewPager.currentItem = pages.size - 1
+                viewPager.currentItem = adapterSize - 1
             }
 
             // Click next button going to next page
             buttonNext.setOnClickListener {
                 var position = viewPager.currentItem
-                if (position < pages.size) {
+                if (position < adapterSize) {
                     position++
                     viewPager.currentItem = position
                 }
                 when (position) {
                     // Last page load animation
-                    pages.size - 1 -> loadLastScreen()
+                    adapterSize - 1 -> loadLastScreen()
                     // Click start button going to main page
-                    pages.size -> {
+                    adapterSize -> {
                         viewModel.saveState(true)
                         launchMainFragment()
                     }
@@ -108,19 +126,21 @@ class IntroFragment : Fragment(R.layout.fragment_intro), OnBackPressedListener {
     }
 
     override fun onDestroyView() {
-        _pages = null
+        introSliderAdapter = null
         _binding = null
         super.onDestroyView()
     }
 
     override fun onBackPressed(): Boolean {
-        var position = binding.viewPager.currentItem
-        return if (position != 0) { // Back to previous page
-            position--
-            binding.viewPager.currentItem = position
-            false
-        } else {
-            true
+        binding.apply {
+            var position = viewPager.currentItem
+            return if (position != 0) { // Back to previous page
+                position--
+                viewPager.currentItem = position
+                false
+            } else {
+                true
+            }
         }
     }
 }
