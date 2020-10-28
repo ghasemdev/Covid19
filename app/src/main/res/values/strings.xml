@@ -12,4 +12,11 @@
     <string name="use_nose_rag_title">Use Nose Rag</string>
     <string name="use_nose_rag_desc">Cover your nose and mouth with your bent elbow or a tissue when you cough.</string>
 
+    <string name="recovered">Recovered</string>
+    <string name="confirmed">Confirmed</string>
+    <string name="deaths">Deaths</string>
+    <string name="top_country">Top Country</string>
+    <string name="view_all">View All</string>
+    <string name="network_error">Network connection failed please try again</string>
+
 </resources>

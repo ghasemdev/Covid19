@@ -10,12 +10,12 @@
 
     <!--color for background-->
     <color name="background">#FFFFFF</color>
-    <color name="intro_background">#FFFBF5</color>
+    <color name="card_background">#FDFDFD</color>
     <color name="popup_background">#fcfcfc</color>
     <color name="selected_background">#1A18A3FE</color>
 
     <!--color for icon-->
-    <color name="icon_color">#FF000000</color>
+    <color name="icon_color">#0E0E0E</color>
 
     <!--color for text -->
     <color name="color_primary_text">#000000</color>

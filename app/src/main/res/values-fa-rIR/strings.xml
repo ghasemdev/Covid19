@@ -11,4 +11,12 @@
     <string name="wash_hand_desc">دستان خود را مرتبا تمیز کنید. از آب و صابون یا مالش دستی با پایه الکل استفاده کنید.</string>
     <string name="use_nose_rag_title">از دستمال یک بار مصرف استفاده کن</string>
     <string name="use_nose_rag_desc">هنگام سرفه بینی و دهان خود را با آرنج خم شده یا دستمال خود بپوشانید.</string>
+
+    <string name="recovered">بهبود یافته</string>
+    <string name="confirmed">تایید شده</string>
+    <string name="deaths">فوت شدگان</string>
+    <string name="top_country">بیشترین آمار</string>
+    <string name="view_all">مشاهده همه</string>
+    <string name="network_error">اتصال شبکه قطع شده است لطفا دوباره امتحان کنید</string>
+
 </resources>
