@@ -67,8 +67,8 @@ class IntroFragment : Fragment(R.layout.fragment_intro), OnBackPressedListener {
                 ),
                 Slider(
                     icon = R.drawable.wear_mask,
-                    title = getString(R.string.wash_hand_title),
-                    description = getString(R.string.wash_hand_desc)
+                    title = getString(R.string.wear_mask_title),
+                    description = getString(R.string.wear_mask_desc)
                 ),
                 Slider(
                     icon = R.drawable.use_nose_rag,

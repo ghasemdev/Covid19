@@ -6,6 +6,7 @@ import com.jakode.covid19.data.api.mapper.NetworkMapper
 import com.jakode.covid19.data.database.dao.GlobalDao
 import com.jakode.covid19.data.database.dao.StatisticsDao
 import com.jakode.covid19.data.database.mapper.CacheMapper
+import com.jakode.covid19.data.datastore.DataStoreRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,12 +20,13 @@ object RepositoryModule {
     @Singleton
     @Provides
     fun provideRepository(
-            statisticsDao: StatisticsDao,
-            globalDao: GlobalDao,
-            api: CovidApi,
-            cacheMapper: CacheMapper,
-            networkMapper: NetworkMapper
+        statisticsDao: StatisticsDao,
+        globalDao: GlobalDao,
+        api: CovidApi,
+        dataStore: DataStoreRepository,
+        cacheMapper: CacheMapper,
+        networkMapper: NetworkMapper
     ): AppRepository {
-        return AppRepository(statisticsDao, globalDao, api, cacheMapper, networkMapper)
+        return AppRepository(statisticsDao, globalDao, api, dataStore, cacheMapper, networkMapper)
     }
 }

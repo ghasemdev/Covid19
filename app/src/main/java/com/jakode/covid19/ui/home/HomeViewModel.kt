@@ -1,4 +1,4 @@
-package com.jakode.covid19.ui
+package com.jakode.covid19.ui.home
 
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
@@ -11,21 +11,21 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
-class MainViewModel @ViewModelInject constructor(
-        private val appRepository: AppRepository,
-        @Assisted private val savedStateHandle: SavedStateHandle
+class HomeViewModel @ViewModelInject constructor(
+    private val appRepository: AppRepository,
+    @Assisted private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-    private val _dataState: MutableLiveData<DataState<Global>> = MutableLiveData()
+    private val _dataState: MutableLiveData<DataState<Global>> by lazy { MutableLiveData() }
 
     val dataState: LiveData<DataState<Global>>
         get() = _dataState
 
     @ExperimentalCoroutinesApi
-    fun setStateEvent(mainStateEvent: MainStateEvent) {
+    fun setStateEvent(mainStateEvent: MainStateEvent, isRefreshed: Boolean) {
         viewModelScope.launch {
             when (mainStateEvent) {
                 is MainStateEvent.GetBlogEvents -> {
-                    appRepository.getGlobal().onEach { dataState ->
+                    appRepository.getGlobal(isRefreshed).onEach { dataState ->
                         _dataState.value = dataState
                     }.launchIn(viewModelScope)
                 }
