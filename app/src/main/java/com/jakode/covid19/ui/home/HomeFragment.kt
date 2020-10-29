@@ -51,12 +51,12 @@ class HomeFragment : Fragment(R.layout.fragment_home), OnBackPressedListener,
 
     private fun globalExpand() {
         binding.apply {
-            expand.setOnClickListener {
+            expand.setOnClickListener { // Open card view
                 if (expandLayout.visibility == View.GONE) {
                     TransitionManager.beginDelayedTransition(information, AutoTransition())
                     expandLayout.visibility = View.VISIBLE
                     expand.animate().rotationBy(180F).duration = 400
-                } else {
+                } else { // Close card view
                     TransitionManager.beginDelayedTransition(information, AutoTransition())
                     expandLayout.visibility = View.GONE
                     expand.animate().rotationBy(180F).duration = 400
