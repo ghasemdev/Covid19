@@ -58,21 +58,23 @@ class CacheMapper @Inject constructor() : EntityMapper<StatisticsCacheEntity, St
 
     fun mapFromGlobal(entity: GlobalCacheEntity): Global {
         return Global(
-            recovered = entity.recovered,
-            deaths = entity.deaths,
             confirmed = entity.confirmed,
-            lastChecked = entity.lastChecked,
-            lastReported = entity.lastReported
+            deaths = entity.deaths,
+            recovered = entity.recovered,
+            active = entity.active,
+            fatalityRate = entity.fatalityRate,
+            lastUpdate = entity.lastUpdate
         )
     }
 
     fun mapToGlobal(domainModel: Global): GlobalCacheEntity {
         return GlobalCacheEntity(
-            recovered = domainModel.recovered,
-            deaths = domainModel.deaths,
             confirmed = domainModel.confirmed,
-            lastChecked = domainModel.lastChecked,
-            lastReported = domainModel.lastReported,
+            deaths = domainModel.deaths,
+            recovered = domainModel.recovered,
+            active = domainModel.active,
+            fatalityRate = domainModel.fatalityRate,
+            lastUpdate = domainModel.lastUpdate,
             location = "Global"
         )
     }

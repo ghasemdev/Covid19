@@ -11,7 +11,7 @@ interface CovidApi {
     @GET("statistics")
     suspend fun getStatistics(): StatisticsResponse
 
-    @Headers("x-rapidapi-host: covid-19-coronavirus-statistics.p.rapidapi.com", "x-rapidapi-key: b1dca9cd32msha4a6cb59653fc04p1c1d93jsnbfbaac9d5ecc")
-    @GET("v1/total")
+    @Headers("x-rapidapi-host: covid-19-statistics.p.rapidapi.com", "x-rapidapi-key: b1dca9cd32msha4a6cb59653fc04p1c1d93jsnbfbaac9d5ecc")
+    @GET("reports/total")
     suspend fun getGlobal(): GlobalResponse
 }

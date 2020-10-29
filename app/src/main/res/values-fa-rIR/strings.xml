@@ -18,5 +18,8 @@
     <string name="top_country">بیشترین آمار</string>
     <string name="view_all">مشاهده همه</string>
     <string name="network_error">اتصال شبکه قطع شده است لطفا دوباره امتحان کنید</string>
+    <string name="active">فعال</string>
+    <string name="fatality_rate">نرخ مرگ</string>
+    <string name="last_update">اخرین آپدیت</string>
 
 </resources>

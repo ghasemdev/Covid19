@@ -210,7 +210,7 @@
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_marginStart="24dp"
-                                android:layout_marginTop="16dp"
+                                android:layout_marginTop="24dp"
                                 android:layout_marginBottom="16dp"
                                 app:cardBackgroundColor="#55E13A"
                                 app:cardCornerRadius="8dp"
@@ -218,7 +218,8 @@
                                 app:cardMaxElevation="0dp"
                                 app:layout_constraintBottom_toTopOf="@+id/divider"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintVertical_chainStyle="packed" />
 
                             <TextView
                                 android:id="@+id/recovered_label"
@@ -247,9 +248,10 @@
                                 android:layout_height="1dp"
                                 android:layout_marginStart="24dp"
                                 android:layout_marginEnd="24dp"
-                                android:background="?android:attr/listDivider"
+                                android:background="@color/color_divider"
                                 app:layout_constraintBottom_toTopOf="@+id/confirmed_icon"
                                 app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.5"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/recovered_icon" />
 
@@ -295,9 +297,10 @@
                                 android:layout_height="1dp"
                                 android:layout_marginStart="24dp"
                                 android:layout_marginEnd="24dp"
-                                android:background="?android:attr/listDivider"
+                                android:background="@color/color_divider"
                                 app:layout_constraintBottom_toTopOf="@+id/deaths_icon"
                                 app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.5"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/confirmed_icon" />
 
@@ -312,7 +315,7 @@
                                 app:cardCornerRadius="8dp"
                                 app:cardElevation="0dp"
                                 app:cardMaxElevation="0dp"
-                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintBottom_toTopOf="@+id/expand_layout"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/divider2" />
 
@@ -336,6 +339,140 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="@+id/deaths_label"
                                 tools:text="1,159,397" />
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/expand_layout"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone"
+                                app:layout_constraintBottom_toTopOf="@+id/expand"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.5"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/deaths_icon">
+
+                                <View
+                                    android:id="@+id/divider3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_marginStart="24dp"
+                                    android:layout_marginEnd="24dp"
+                                    android:background="@color/color_divider"
+                                    app:layout_constraintBottom_toTopOf="@+id/active"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.5"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/active"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="24dp"
+                                    android:layout_marginTop="16dp"
+                                    android:layout_marginBottom="16dp"
+                                    android:text="@string/active"
+                                    app:layout_constraintBottom_toTopOf="@+id/divider4"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/divider3" />
+
+                                <TextView
+                                    android:id="@+id/active_value"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="24dp"
+                                    android:text="@{ExtensionKt.formatNumber(Global.active)}"
+                                    app:layout_constraintBottom_toBottomOf="@+id/active"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="@+id/active"
+                                    tools:text="13,255,451" />
+
+                                <View
+                                    android:id="@+id/divider4"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_marginStart="24dp"
+                                    android:layout_marginEnd="24dp"
+                                    android:background="@color/color_divider"
+                                    app:layout_constraintBottom_toTopOf="@+id/fatality_rate"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.5"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/active" />
+
+                                <TextView
+                                    android:id="@+id/fatality_rate"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="24dp"
+                                    android:layout_marginTop="16dp"
+                                    android:layout_marginBottom="16dp"
+                                    android:text="@string/fatality_rate"
+                                    app:layout_constraintBottom_toTopOf="@+id/divider5"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/divider4" />
+
+                                <TextView
+                                    android:id="@+id/fatality_rate_value"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="24dp"
+                                    android:text="@{String.valueOf(Global.fatalityRate)}"
+                                    app:layout_constraintBottom_toBottomOf="@+id/fatality_rate"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="@+id/fatality_rate"
+                                    tools:text="0.0264" />
+
+                                <View
+                                    android:id="@+id/divider5"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_marginStart="24dp"
+                                    android:layout_marginEnd="24dp"
+                                    android:background="@color/color_divider"
+                                    app:layout_constraintBottom_toTopOf="@+id/last_update"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.5"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/fatality_rate" />
+
+                                <TextView
+                                    android:id="@+id/last_update"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="24dp"
+                                    android:layout_marginTop="16dp"
+                                    android:layout_marginBottom="16dp"
+                                    android:text="@string/last_update"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/divider5" />
+
+                                <TextView
+                                    android:id="@+id/last_update_value"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="24dp"
+                                    android:text="@{Global.lastUpdate}"
+                                    app:layout_constraintBottom_toBottomOf="@+id/last_update"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="@+id/last_update"
+                                    tools:text="2020-10-29 04:24:49" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <ImageView
+                                android:id="@+id/expand"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_marginBottom="8dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.5"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/expand_layout"
+                                app:srcCompat="@drawable/ic_expand_more"
+                                tools:ignore="ContentDescription" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.cardview.widget.CardView>

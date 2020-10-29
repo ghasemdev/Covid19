@@ -7,6 +7,8 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.transition.AutoTransition
+import androidx.transition.TransitionManager
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
@@ -41,9 +43,26 @@ class HomeFragment : Fragment(R.layout.fragment_home), OnBackPressedListener,
         _binding = FragmentHomeBinding.bind(view)
         observe()
         refresh()
+        globalExpand()
 
         // impalement onBackPressed
         (activity as MainActivity).setOnBackPressedListener(this)
+    }
+
+    private fun globalExpand() {
+        binding.apply {
+            expand.setOnClickListener {
+                if (expandLayout.visibility == View.GONE) {
+                    TransitionManager.beginDelayedTransition(information, AutoTransition())
+                    expandLayout.visibility = View.VISIBLE
+                    expand.animate().rotationBy(180F).duration = 400
+                } else {
+                    TransitionManager.beginDelayedTransition(information, AutoTransition())
+                    expandLayout.visibility = View.GONE
+                    expand.animate().rotationBy(180F).duration = 400
+                }
+            }
+        }
     }
 
     @ExperimentalCoroutinesApi

@@ -58,11 +58,12 @@ class NetworkMapper @Inject constructor() : EntityMapper<StatisticsNetworkEntity
 
     fun mapFromGlobal(entity: GlobalNetworkEntity): Global {
         return Global(
-            recovered = entity.recovered,
-            deaths = entity.deaths,
             confirmed = entity.confirmed,
-            lastChecked = entity.lastChecked,
-            lastReported = entity.lastReported
+            deaths = entity.deaths,
+            recovered = entity.recovered,
+            active = entity.active,
+            fatalityRate = entity.fatalityRate,
+            lastUpdate = entity.lastUpdate,
         )
     }
 }

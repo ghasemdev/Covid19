@@ -18,5 +18,8 @@
     <string name="top_country">Top Country</string>
     <string name="view_all">View All</string>
     <string name="network_error">Network connection failed please try again</string>
+    <string name="active">active</string>
+    <string name="fatality_rate">Fatality Rate</string>
+    <string name="last_update">Last Update</string>
 
 </resources>
