@@ -5,6 +5,5 @@ data class Global(
     var deaths: Int,
     var recovered: Int,
     var active: Int,
-    var fatalityRate: Float,
     var lastUpdate: String,
 )

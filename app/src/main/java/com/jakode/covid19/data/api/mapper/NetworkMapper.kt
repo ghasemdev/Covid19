@@ -1,8 +1,6 @@
 package com.jakode.covid19.data.api.mapper
 
-import com.jakode.covid19.data.api.model.GlobalNetworkEntity
 import com.jakode.covid19.data.api.model.StatisticsNetworkEntity
-import com.jakode.covid19.model.Global
 import com.jakode.covid19.model.Statistics
 import com.jakode.covid19.utils.EntityMapper
 import javax.inject.Inject
@@ -54,16 +52,5 @@ class NetworkMapper @Inject constructor() : EntityMapper<StatisticsNetworkEntity
 
     fun mapFromEntityList(entities: List<StatisticsNetworkEntity>): List<Statistics> {
         return entities.map { mapFromEntity(it) }
-    }
-
-    fun mapFromGlobal(entity: GlobalNetworkEntity): Global {
-        return Global(
-            confirmed = entity.confirmed,
-            deaths = entity.deaths,
-            recovered = entity.recovered,
-            active = entity.active,
-            fatalityRate = entity.fatalityRate,
-            lastUpdate = entity.lastUpdate,
-        )
     }
 }

@@ -15,13 +15,13 @@ data class StatisticsCacheEntity(
         val population: Int?,
 
         @Embedded
-        val cases: Cases,
+        val cases: Cases?,
 
         @Embedded
-        val deaths: Deaths,
+        val deaths: Deaths?,
 
         @Embedded
-        val tests: Tests,
+        val tests: Tests?,
 
         val day: String,
 

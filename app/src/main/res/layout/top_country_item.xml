@@ -187,6 +187,6 @@
             app:layout_constraintTop_toTopOf="@+id/constraintLayout"
             app:setImage="@{Statistic.flag}"
             tools:ignore="ContentDescription"
-            tools:srcCompat="@drawable/ic_united_states_of_america" />
+            tools:srcCompat="@drawable/ic_USA" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

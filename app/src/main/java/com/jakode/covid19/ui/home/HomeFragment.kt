@@ -18,6 +18,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.jakode.covid19.R
 import com.jakode.covid19.databinding.FragmentHomeBinding
 import com.jakode.covid19.model.Global
+import com.jakode.covid19.model.GlobalAndStatistics
 import com.jakode.covid19.model.Statistics
 import com.jakode.covid19.ui.MainActivity
 import com.jakode.covid19.utils.*
@@ -31,7 +32,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), OnBackPressedListener,
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var topCountry: List<Statistics>
+    private var topCountry: List<Statistics> = listOf()
     private var topCountryAdapter: TopCountryAdapter? = null
 
     private lateinit var globalInfo: List<PieEntry>
@@ -48,141 +49,9 @@ class HomeFragment : Fragment(R.layout.fragment_home), OnBackPressedListener,
         observe()
         refresh()
         globalExpand()
-        topCountryRecycler()
 
         // impalement onBackPressed
         (activity as MainActivity).setOnBackPressedListener(this)
-    }
-
-    private fun topCountryRecycler() {
-        initTopCountry()
-        topCountryAdapter = TopCountryAdapter(topCountry)
-        binding.topCountry.apply { adapter = topCountryAdapter!! }
-    }
-
-    private fun initTopCountry() {
-        topCountry = listOf(
-            Statistics(
-                flag = R.drawable.ic_united_states_of_america,
-                continent = "North-America",
-                country = "USA",
-                population = 331637477,
-                cases = Statistics.Cases(
-                    new = "+64870",
-                    active = 2993249,
-                    critical = 16881,
-                    recovered = 5958533,
-                    total = 9185621
-                ),
-                deaths = Statistics.Deaths(
-                    new = "+709",
-                    total = 233839
-                ),
-                tests = Statistics.Tests(total = 141065578),
-                day = "2020-10-29",
-                time = "2020-10-29T20:45:06+00:00"
-            ),
-            Statistics(
-                flag = R.drawable.ic_united_states_of_america,
-                continent = "North-America",
-                country = "USA",
-                population = 331637477,
-                cases = Statistics.Cases(
-                    new = "+64870",
-                    active = 2993249,
-                    critical = 16881,
-                    recovered = 5958533,
-                    total = 9185621
-                ),
-                deaths = Statistics.Deaths(
-                    new = "+709",
-                    total = 233839
-                ),
-                tests = Statistics.Tests(total = 141065578),
-                day = "2020-10-29",
-                time = "2020-10-29T20:45:06+00:00"
-            ),
-            Statistics(
-                flag = R.drawable.ic_united_states_of_america,
-                continent = "North-America",
-                country = "USA",
-                population = 331637477,
-                cases = Statistics.Cases(
-                    new = "+64870",
-                    active = 2993249,
-                    critical = 16881,
-                    recovered = 5958533,
-                    total = 9185621
-                ),
-                deaths = Statistics.Deaths(
-                    new = "+709",
-                    total = 233839
-                ),
-                tests = Statistics.Tests(total = 141065578),
-                day = "2020-10-29",
-                time = "2020-10-29T20:45:06+00:00"
-            ),
-            Statistics(
-                flag = R.drawable.ic_united_states_of_america,
-                continent = "North-America",
-                country = "USA",
-                population = 331637477,
-                cases = Statistics.Cases(
-                    new = "+64870",
-                    active = 2993249,
-                    critical = 16881,
-                    recovered = 5958533,
-                    total = 9185621
-                ),
-                deaths = Statistics.Deaths(
-                    new = "+709",
-                    total = 233839
-                ),
-                tests = Statistics.Tests(total = 141065578),
-                day = "2020-10-29",
-                time = "2020-10-29T20:45:06+00:00"
-            ),
-            Statistics(
-                flag = R.drawable.ic_united_states_of_america,
-                continent = "North-America",
-                country = "USA",
-                population = 331637477,
-                cases = Statistics.Cases(
-                    new = "+64870",
-                    active = 2993249,
-                    critical = 16881,
-                    recovered = 5958533,
-                    total = 9185621
-                ),
-                deaths = Statistics.Deaths(
-                    new = "+709",
-                    total = 233839
-                ),
-                tests = Statistics.Tests(total = 141065578),
-                day = "2020-10-29",
-                time = "2020-10-29T20:45:06+00:00"
-            ),
-            Statistics(
-                flag = R.drawable.ic_united_states_of_america,
-                continent = "North-America",
-                country = "USA",
-                population = 331637477,
-                cases = Statistics.Cases(
-                    new = "+64870",
-                    active = 2993249,
-                    critical = 16881,
-                    recovered = 5958533,
-                    total = 9185621
-                ),
-                deaths = Statistics.Deaths(
-                    new = "+709",
-                    total = 233839
-                ),
-                tests = Statistics.Tests(total = 141065578),
-                day = "2020-10-29",
-                time = "2020-10-29T20:45:06+00:00"
-            )
-        )
     }
 
     private fun globalExpand() {
@@ -217,10 +86,11 @@ class HomeFragment : Fragment(R.layout.fragment_home), OnBackPressedListener,
         viewModel.setStateEvent(MainStateEvent.GetBlogEvents, false)
         viewModel.dataState.observe(viewLifecycleOwner, { dataState ->
             when (dataState) {
-                is DataState.Success<Global> -> {
+                is DataState.Success<GlobalAndStatistics> -> {
                     displayProgressBar(false)
-                    binding.global = dataState.data
-                    setGlobalInfo(dataState.data)
+                    setStatistic(dataState.data.statistics)
+                    setGlobalInfo(dataState.data.global)
+                    binding.global = dataState.data.global
                     pieChart()
                 }
                 is DataState.Error -> {
@@ -232,6 +102,16 @@ class HomeFragment : Fragment(R.layout.fragment_home), OnBackPressedListener,
                 }
             }
         })
+    }
+
+    private fun setStatistic(statistics: List<Statistics>) {
+        topCountry = statistics
+        topCountryRecycler()
+    }
+
+    private fun topCountryRecycler() {
+        topCountryAdapter = TopCountryAdapter(topCountry)
+        binding.topCountry.apply { adapter = topCountryAdapter!! }
     }
 
     private fun setGlobalInfo(global: Global) {

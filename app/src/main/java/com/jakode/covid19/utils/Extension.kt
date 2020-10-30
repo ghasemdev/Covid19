@@ -1,7 +1,9 @@
 package com.jakode.covid19.utils
 
 import android.app.Activity
+import android.content.Context
 import android.content.res.Configuration
+import android.content.res.Resources
 import android.graphics.Color
 import java.lang.StringBuilder
 import java.text.DecimalFormat
@@ -39,37 +41,45 @@ fun getColor(colorHex: String): Int {
 fun toPersian(text: String?): String? {
     return if (isPersian()) {
         val persianText = StringBuilder()
-        fun iterate(letter: Char) {
-            persianText.apply {
-                when (letter) {
-                    '0' -> append("۰")
-                    '1' -> append("۱")
-                    '2' -> append("۲")
-                    '3' -> append("۳")
-                    '4' -> append("۴")
-                    '5' -> append("۵")
-                    '6' -> append("۶")
-                    '7' -> append("۷")
-                    '8' -> append("۸")
-                    '9' -> append("۹")
-                    else -> append(letter)
+        if (text != null) {
+            for (letter in text) {
+                if (letter == '+') break
+                persianText.apply {
+                    when (letter) {
+                        '0' -> append("۰")
+                        '1' -> append("۱")
+                        '2' -> append("۲")
+                        '3' -> append("۳")
+                        '4' -> append("۴")
+                        '5' -> append("۵")
+                        '6' -> append("۶")
+                        '7' -> append("۷")
+                        '8' -> append("۸")
+                        '9' -> append("۹")
+                        'T' -> append(" ")
+                        else -> append(letter)
+                    }
                 }
-            }
-        }
-        text?.let {
-            val arrayText = it.split(" ")
-            if (arrayText.size > 1) {
-                for (index in arrayText.size - 1 downTo 0) {
-                    for (letter in arrayText[index])
-                        iterate(letter)
-                    persianText.append(" ")
-                }
-            } else {
-                for (letter in text) iterate(letter)
             }
         }
         persianText.toString()
-    } else text
+    } else {
+        text?.let { it.replace("T", " ").substring(0, it.lastIndex - 5) }
+    }
 }
 
 fun isPersian() = Locale.getDefault().language == "fa"
+
+/**
+ * Get resource from name
+ * @param context
+ * @param country
+ * @return Int resource
+ */
+fun getResources(context: Context, country: String): Int {
+    val resources: Resources = context.resources
+    return resources.getIdentifier(
+        "ic_${country.toLowerCase(Locale.ROOT)}", "drawable",
+        context.packageName
+    )
+}

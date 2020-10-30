@@ -11,9 +11,6 @@ data class GlobalCacheEntity(
     var recovered: Int,
     var active: Int,
 
-    @ColumnInfo(name = "fatality_rate")
-    var fatalityRate: Float,
-
     @ColumnInfo(name = "last_update")
     var lastUpdate: String,
 

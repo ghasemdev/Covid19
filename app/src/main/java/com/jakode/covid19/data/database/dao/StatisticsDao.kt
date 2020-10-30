@@ -9,8 +9,8 @@ import com.jakode.covid19.data.database.model.StatisticsCacheEntity
 @Dao
 interface StatisticsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(entity: StatisticsCacheEntity)
+    suspend fun insert(vararg entity: StatisticsCacheEntity)
 
-    @Query("SELECT * FROM statistics")
+    @Query("SELECT * FROM statistics WHERE continent != country")
     suspend fun getAll(): List<StatisticsCacheEntity>
 }

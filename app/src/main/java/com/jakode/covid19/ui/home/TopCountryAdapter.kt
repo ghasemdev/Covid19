@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jakode.covid19.R
 import com.jakode.covid19.databinding.TopCountryItemBinding
 import com.jakode.covid19.model.Statistics
+import com.jakode.covid19.utils.getResources
 
 class TopCountryAdapter(private var list: List<Statistics>) :
     RecyclerView.Adapter<TopCountryAdapter.ViewHolder>() {
@@ -28,7 +29,8 @@ class TopCountryAdapter(private var list: List<Statistics>) :
     inner class ViewHolder(private val binding: TopCountryItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun setData(statistic: Statistics) {
-            binding.statistic = statistic
+            binding.statistic =
+                statistic.apply { flag = getResources(binding.root.context, statistic.country) }
         }
     }
 }

@@ -14,17 +14,17 @@ class CacheMapper @Inject constructor() : EntityMapper<StatisticsCacheEntity, St
             country = entity.country,
             population = entity.population,
             cases = Statistics.Cases(
-                new = entity.cases.newCases,
-                active = entity.cases.activeCases,
-                critical = entity.cases.criticalCases,
-                recovered = entity.cases.recoveredCases,
-                total = entity.cases.totalCases
+                new = entity.cases?.newCases,
+                active = entity.cases?.activeCases,
+                critical = entity.cases?.criticalCases,
+                recovered = entity.cases?.recoveredCases,
+                total = entity.cases?.totalCases
             ),
             deaths = Statistics.Deaths(
-                new = entity.deaths.newDeaths,
-                total = entity.deaths.totalDeaths
+                new = entity.deaths?.newDeaths,
+                total = entity.deaths?.totalDeaths
             ),
-            tests = Statistics.Tests(entity.tests.totalTests),
+            tests = Statistics.Tests(entity.tests?.totalTests),
             day = entity.day,
             time = entity.time
         )
@@ -56,13 +56,16 @@ class CacheMapper @Inject constructor() : EntityMapper<StatisticsCacheEntity, St
         return entities.map { mapFromEntity(it) }
     }
 
+    fun mapToEntityList(entities: List<Statistics>): List<StatisticsCacheEntity> {
+        return entities.map { mapToEntity(it) }
+    }
+
     fun mapFromGlobal(entity: GlobalCacheEntity): Global {
         return Global(
             confirmed = entity.confirmed,
             deaths = entity.deaths,
             recovered = entity.recovered,
             active = entity.active,
-            fatalityRate = entity.fatalityRate,
             lastUpdate = entity.lastUpdate
         )
     }
@@ -73,9 +76,18 @@ class CacheMapper @Inject constructor() : EntityMapper<StatisticsCacheEntity, St
             deaths = domainModel.deaths,
             recovered = domainModel.recovered,
             active = domainModel.active,
-            fatalityRate = domainModel.fatalityRate,
             lastUpdate = domainModel.lastUpdate,
             location = "Global"
+        )
+    }
+
+    fun statisticToGlobal(entities: Statistics): Global {
+        return Global(
+            confirmed = entities.cases.total!!,
+            deaths = entities.deaths.total!!,
+            recovered = entities.cases.recovered!!,
+            active = entities.cases.active!!,
+            lastUpdate = entities.time,
         )
     }
 }

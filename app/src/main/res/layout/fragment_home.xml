@@ -395,8 +395,8 @@
                                 <TextView
                                     android:id="@+id/active"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="24dp"
+                                    android:layout_height="21dp"
+                                    android:layout_marginStart="40dp"
                                     android:layout_marginTop="15dp"
                                     android:layout_marginBottom="15dp"
                                     android:text="@string/active"
@@ -424,62 +424,24 @@
                                     android:layout_marginStart="24dp"
                                     android:layout_marginEnd="24dp"
                                     android:background="@color/color_divider"
-                                    app:layout_constraintBottom_toTopOf="@+id/fatality_rate"
+                                    app:layout_constraintBottom_toTopOf="@+id/last_update"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintHorizontal_bias="0.5"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toBottomOf="@+id/active" />
 
                                 <TextView
-                                    android:id="@+id/fatality_rate"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="24dp"
-                                    android:layout_marginTop="15dp"
-                                    android:layout_marginBottom="15dp"
-                                    android:text="@string/fatality_rate"
-                                    android:textSize="15sp"
-                                    app:layout_constraintBottom_toTopOf="@+id/divider5"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@+id/divider4" />
-
-                                <TextView
-                                    android:id="@+id/fatality_rate_value"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginEnd="24dp"
-                                    android:text="@{ExtensionKt.formatFloat(Global.fatalityRate)}"
-                                    android:textSize="15sp"
-                                    app:layout_constraintBottom_toBottomOf="@+id/fatality_rate"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintTop_toTopOf="@+id/fatality_rate"
-                                    tools:text="0.0264" />
-
-                                <View
-                                    android:id="@+id/divider5"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="1dp"
-                                    android:layout_marginStart="24dp"
-                                    android:layout_marginEnd="24dp"
-                                    android:background="@color/color_divider"
-                                    app:layout_constraintBottom_toTopOf="@+id/last_update"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintHorizontal_bias="0.5"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@+id/fatality_rate" />
-
-                                <TextView
                                     android:id="@+id/last_update"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="24dp"
+                                    android:layout_marginStart="40dp"
                                     android:layout_marginTop="15dp"
                                     android:layout_marginBottom="15dp"
                                     android:text="@string/last_update"
                                     android:textSize="15sp"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@+id/divider5" />
+                                    app:layout_constraintTop_toBottomOf="@+id/divider4" />
 
                                 <TextView
                                     android:id="@+id/last_update_value"
