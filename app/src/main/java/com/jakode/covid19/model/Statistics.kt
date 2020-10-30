@@ -6,6 +6,7 @@ import kotlinx.android.parcel.RawValue
 
 @Parcelize
 data class Statistics(
+    var flag: Int = -1,
     var continent: String?,
     var country: String,
     var population: Int?,

@@ -21,5 +21,6 @@
     <string name="active">active</string>
     <string name="fatality_rate">Fatality Rate</string>
     <string name="last_update">Last Update</string>
+    <string name="total_case">Total Case</string>
 
 </resources>

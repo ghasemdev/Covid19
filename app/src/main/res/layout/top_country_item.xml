@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.jakode.covid19.utils.ExtensionKt" />
+
+        <variable
+            name="Statistic"
+            type="com.jakode.covid19.model.Statistics" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:paddingTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="190dp"
+                android:layout_height="230dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="5dp"
+                app:cardBackgroundColor="@color/card_background"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/top_country"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_more"
+                        app:tint="#B1B1B1"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/country"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@{Statistic.country}"
+                        android:textColor="@color/color_secondary_text"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/more"
+                        tools:text="USA" />
+
+                    <TextView
+                        android:id="@+id/recovered"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="13dp"
+                        android:text="@string/recovered"
+                        android:textColor="@color/color_secondary_text"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toTopOf="@+id/total_case"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/country" />
+
+                    <TextView
+                        android:id="@+id/recovered_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="13dp"
+                        android:text="@{ExtensionKt.formatShortcut(Statistic.cases.recovered)}"
+                        android:textColor="@color/color_secondary_text"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/recovered"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/recovered"
+                        tools:text="473K" />
+
+                    <TextView
+                        android:id="@+id/total_case"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="13dp"
+                        android:text="@string/total_case"
+                        android:textColor="@color/color_secondary_text"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toTopOf="@+id/deaths"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/recovered" />
+
+                    <TextView
+                        android:id="@+id/total_case_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="13dp"
+                        android:text="@{ExtensionKt.formatShortcut(Statistic.cases.total)}"
+                        android:textColor="@color/color_secondary_text"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/total_case"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/total_case"
+                        tools:text="597K" />
+
+                    <TextView
+                        android:id="@+id/deaths"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="13dp"
+                        android:text="@string/deaths"
+                        android:textColor="@color/color_secondary_text"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/total_case" />
+
+                    <TextView
+                        android:id="@+id/deaths_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="13dp"
+                        android:text="@{ExtensionKt.formatShortcut(Statistic.deaths.total)}"
+                        android:textColor="@color/color_secondary_text"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/deaths"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/deaths"
+                        tools:text="34,113" />
+
+                    <TextView
+                        android:id="@+id/new_case_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{Statistic.cases.new}"
+                        android:textColor="#E91E1E"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="@+id/total_case_value"
+                        app:layout_constraintTop_toBottomOf="@+id/total_case_value"
+                        tools:text="+8293" />
+
+                    <TextView
+                        android:id="@+id/new_death_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{Statistic.deaths.new}"
+                        android:textColor="#E91E1E"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="@+id/deaths_value"
+                        app:layout_constraintTop_toBottomOf="@+id/deaths_value"
+                        tools:text="+399" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/flag"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/constraintLayout"
+            app:setImage="@{Statistic.flag}"
+            tools:ignore="ContentDescription"
+            tools:srcCompat="@drawable/ic_united_states_of_america" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
