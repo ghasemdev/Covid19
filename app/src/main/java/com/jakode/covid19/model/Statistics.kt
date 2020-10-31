@@ -1,9 +1,6 @@
 package com.jakode.covid19.model
 
-import android.content.Context
-import android.content.res.Resources
 import android.os.Parcelable
-import com.jakode.covid19.R
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.RawValue
 

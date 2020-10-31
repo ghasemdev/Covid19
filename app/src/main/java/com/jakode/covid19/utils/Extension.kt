@@ -79,7 +79,7 @@ fun isPersian() = Locale.getDefault().language == "fa"
 fun getResources(context: Context, country: String): Int {
     val resources: Resources = context.resources
     return resources.getIdentifier(
-        "ic_${country.toLowerCase(Locale.ROOT)}", "drawable",
+        "ic_${country.toLowerCase(Locale.ROOT).replace("-", "_")}", "drawable",
         context.packageName
     )
 }

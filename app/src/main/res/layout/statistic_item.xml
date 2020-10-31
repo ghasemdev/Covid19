@@ -13,14 +13,13 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:paddingTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -28,12 +27,10 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="190dp"
+                android:layout_width="0dp"
                 android:layout_height="230dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="4dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 app:cardBackgroundColor="@color/card_background"
                 app:cardCornerRadius="15dp"
                 app:cardElevation="4dp"
@@ -49,108 +46,99 @@
                     android:layout_height="match_parent">
 
                     <ImageView
-                        android:id="@+id/more"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:clickable="true"
-                        android:focusable="true"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        android:id="@+id/flag"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_more"
-                        app:tint="#B1B1B1"
-                        tools:ignore="ContentDescription" />
+                        app:setImage="@{Statistic.flag}"
+                        tools:ignore="ContentDescription"
+                        tools:srcCompat="@drawable/ic_usa" />
 
                     <TextView
                         android:id="@+id/country"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="24dp"
                         android:text="@{Statistic.country}"
                         android:textColor="@color/color_secondary_text"
-                        android:textSize="16sp"
+                        android:textSize="18sp"
                         android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/more"
+                        app:layout_constraintBottom_toBottomOf="@+id/flag"
+                        app:layout_constraintStart_toEndOf="@+id/flag"
+                        app:layout_constraintTop_toTopOf="@+id/flag"
                         tools:text="USA" />
 
                     <TextView
                         android:id="@+id/recovered"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="13dp"
+                        android:layout_marginTop="8dp"
                         android:text="@string/recovered"
                         android:textColor="@color/color_secondary_text"
-                        android:textSize="14sp"
-                        app:layout_constraintBottom_toTopOf="@+id/deaths"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/total_case" />
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="@+id/deaths"
+                        app:layout_constraintTop_toBottomOf="@+id/new_death_value" />
 
                     <TextView
                         android:id="@+id/recovered_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="13dp"
-                        android:text="@{ExtensionKt.formatShortcut(Statistic.cases.recovered)}"
+                        android:text="@{ExtensionKt.formatNumber(Statistic.cases.recovered)}"
                         android:textColor="@color/color_secondary_text"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="@+id/recovered"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/total_case_value"
                         app:layout_constraintTop_toTopOf="@+id/recovered"
-                        tools:text="473K" />
+                        tools:text="6,024,512" />
 
                     <TextView
                         android:id="@+id/total_case"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="13dp"
                         android:text="@string/total_case"
                         android:textColor="@color/color_secondary_text"
-                        android:textSize="14sp"
-                        app:layout_constraintBottom_toTopOf="@+id/recovered"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/country" />
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="@+id/country"
+                        app:layout_constraintTop_toBottomOf="@+id/flag" />
 
                     <TextView
                         android:id="@+id/total_case_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="13dp"
-                        android:text="@{ExtensionKt.formatShortcut(Statistic.cases.total)}"
+                        android:layout_marginEnd="24dp"
+                        android:text="@{ExtensionKt.formatNumber(Statistic.cases.total)}"
                         android:textColor="@color/color_secondary_text"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="@+id/total_case"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/total_case"
-                        tools:text="597K" />
+                        tools:text="9,316,297" />
 
                     <TextView
                         android:id="@+id/deaths"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="13dp"
+                        android:layout_marginTop="8dp"
                         android:text="@string/deaths"
                         android:textColor="@color/color_secondary_text"
-                        android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/recovered" />
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="@+id/total_case"
+                        app:layout_constraintTop_toBottomOf="@+id/new_case_value" />
 
                     <TextView
                         android:id="@+id/deaths_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="13dp"
-                        android:text="@{ExtensionKt.formatShortcut(Statistic.deaths.total)}"
+                        android:text="@{ExtensionKt.formatNumber(Statistic.deaths.total)}"
                         android:textColor="@color/color_secondary_text"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="@+id/deaths"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/recovered_value"
                         app:layout_constraintTop_toTopOf="@+id/deaths"
-                        tools:text="34,113" />
+                        tools:text="235,159" />
 
                     <TextView
                         android:id="@+id/new_case_value"
@@ -158,10 +146,10 @@
                         android:layout_height="wrap_content"
                         android:text="@{Statistic.cases.new}"
                         android:textColor="#E91E1E"
-                        android:textSize="12sp"
+                        android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="@+id/total_case_value"
                         app:layout_constraintTop_toBottomOf="@+id/total_case_value"
-                        tools:text="+8293" />
+                        tools:text="+101461" />
 
                     <TextView
                         android:id="@+id/new_death_value"
@@ -169,24 +157,12 @@
                         android:layout_height="wrap_content"
                         android:text="@{Statistic.deaths.new}"
                         android:textColor="#E91E1E"
-                        android:textSize="12sp"
+                        android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="@+id/deaths_value"
                         app:layout_constraintTop_toBottomOf="@+id/deaths_value"
-                        tools:text="+399" />
-
+                        tools:text="+988" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <ImageView
-            android:id="@+id/flag"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/constraintLayout"
-            app:setImage="@{Statistic.flag}"
-            tools:ignore="ContentDescription"
-            tools:srcCompat="@drawable/ic_usa" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

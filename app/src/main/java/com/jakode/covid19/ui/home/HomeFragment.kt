@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.transition.AutoTransition
 import androidx.transition.TransitionManager
 import com.github.mikephil.charting.data.Entry
@@ -18,7 +19,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.jakode.covid19.R
 import com.jakode.covid19.databinding.FragmentHomeBinding
 import com.jakode.covid19.model.Global
-import com.jakode.covid19.model.GlobalAndStatistics
+import com.jakode.covid19.model.StatisticsAndGlobal
 import com.jakode.covid19.model.Statistics
 import com.jakode.covid19.ui.MainActivity
 import com.jakode.covid19.utils.*
@@ -49,9 +50,18 @@ class HomeFragment : Fragment(R.layout.fragment_home), OnBackPressedListener,
         observe()
         refresh()
         globalExpand()
+        clickListener()
 
         // impalement onBackPressed
         (activity as MainActivity).setOnBackPressedListener(this)
+    }
+
+    private fun clickListener() {
+        binding.apply {
+            viewAll.setOnClickListener {
+                findNavController().navigate(R.id.action_homeFragment_to_statisticsFragment)
+            }
+        }
     }
 
     private fun globalExpand() {
@@ -86,7 +96,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), OnBackPressedListener,
         viewModel.setStateEvent(MainStateEvent.GetBlogEvents, false)
         viewModel.dataState.observe(viewLifecycleOwner, { dataState ->
             when (dataState) {
-                is DataState.Success<GlobalAndStatistics> -> {
+                is DataState.Success<StatisticsAndGlobal> -> {
                     displayProgressBar(false)
                     setStatistic(dataState.data.statistics)
                     setGlobalInfo(dataState.data.global)
@@ -111,7 +121,10 @@ class HomeFragment : Fragment(R.layout.fragment_home), OnBackPressedListener,
 
     private fun topCountryRecycler() {
         topCountryAdapter = TopCountryAdapter(topCountry)
-        binding.topCountry.apply { adapter = topCountryAdapter!! }
+        binding.topCountry.apply {
+            adapter = topCountryAdapter!!
+            setHasFixedSize(true)
+        }
     }
 
     private fun setGlobalInfo(global: Global) {

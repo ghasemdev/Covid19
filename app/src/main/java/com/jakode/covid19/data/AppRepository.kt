@@ -6,7 +6,8 @@ import com.jakode.covid19.data.database.dao.GlobalDao
 import com.jakode.covid19.data.database.dao.StatisticsDao
 import com.jakode.covid19.data.database.mapper.CacheMapper
 import com.jakode.covid19.data.datastore.DataStoreRepository
-import com.jakode.covid19.model.GlobalAndStatistics
+import com.jakode.covid19.model.Statistics
+import com.jakode.covid19.model.StatisticsAndGlobal
 import com.jakode.covid19.utils.DataState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -33,7 +34,7 @@ class AppRepository(
         }
     }
 
-    suspend fun getStatistics(isRefreshed: Boolean): Flow<DataState<GlobalAndStatistics>> = flow {
+    suspend fun getStatisticsAndGlobal(isRefreshed: Boolean): Flow<DataState<StatisticsAndGlobal>> = flow {
         emit(DataState.Loading)
         checkCacheDuration()
         val updateTime = dataStore.readTime.first()
@@ -46,7 +47,7 @@ class AppRepository(
             val global = cacheMapper.mapFromGlobal(cacheGlobal)
 
             // emit
-            val globalAndStatistics = GlobalAndStatistics(global, statistics.subList(0, 10))
+            val globalAndStatistics = StatisticsAndGlobal(global, statistics.subList(0, 10))
             emit(DataState.Success(globalAndStatistics))
         } else {
             // Fetch from remote
@@ -59,6 +60,7 @@ class AppRepository(
                             { it.deaths.total },
                             { it.cases.recovered })
                     )
+                    .filter { it.country != "Cura&ccedil;ao" && it.country != "R&eacute;union" }
                     .reversed() // statistic is sorted by descending
                 val global = cacheMapper.statisticToGlobal(statistics[0])
 
@@ -68,11 +70,48 @@ class AppRepository(
                 dataStore.updateTime(System.nanoTime())
 
                 // emit success
-                val globalAndStatistics = GlobalAndStatistics(
+                val globalAndStatistics = StatisticsAndGlobal(
                     global,
                     statistics.filter { it.country != it.continent }.subList(0, 11)
                 )
                 emit(DataState.Success(globalAndStatistics))
+            } catch (e: Exception) {
+                emit(DataState.Error(e))
+            }
+        }
+    }
+
+    suspend fun getStatistics(isRefreshed: Boolean): Flow<DataState<List<Statistics>>> = flow {
+        emit(DataState.Loading)
+        checkCacheDuration()
+        val updateTime = dataStore.readTime.first()
+        if (updateTime != 0L && System.nanoTime() - updateTime < refreshTime && !isRefreshed) {
+            // Fetch from database
+            val cacheStatistics = statisticsDao.getAll()
+            val statistics = cacheMapper.mapFromEntityList(cacheStatistics)
+
+            // emit
+            emit(DataState.Success(statistics))
+        } else {
+            // Fetch from remote
+            try {
+                val networkStatistics = api.getStatistics().statistics
+                val statistics = networkMapper.mapFromEntityList(networkStatistics)
+                    .sortedWith(
+                        compareBy(
+                            { it.cases.total },
+                            { it.deaths.total },
+                            { it.cases.recovered })
+                    )
+                    .filter { it.country != "Cura&ccedil;ao" && it.country != "R&eacute;union" }
+                    .reversed() // statistic is sorted by descending
+
+                // Store locally
+                statisticsDao.insert(*cacheMapper.mapToEntityList(statistics).toTypedArray())
+                dataStore.updateTime(System.nanoTime())
+
+                // emit success
+                emit(DataState.Success(statistics.filter { it.country != it.continent }))
             } catch (e: Exception) {
                 emit(DataState.Error(e))
             }
