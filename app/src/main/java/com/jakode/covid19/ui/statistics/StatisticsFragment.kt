@@ -5,11 +5,13 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.google.android.material.appbar.AppBarLayout
 import com.jakode.covid19.R
 import com.jakode.covid19.databinding.FragmentStatisticsBinding
 import com.jakode.covid19.model.Statistics
 import com.jakode.covid19.ui.MainActivity
 import com.jakode.covid19.ui.home.MainStateEvent
+import com.jakode.covid19.utils.AppBarStateChangeListener
 import com.jakode.covid19.utils.DataState
 import com.jakode.covid19.utils.OnBackPressedListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,9 +32,22 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics), OnBackPressed
         _binding = FragmentStatisticsBinding.bind(view)
         observe()
         refresh()
+        parallax()
 
         // impalement onBackPressed
         (activity as MainActivity).setOnBackPressedListener(this)
+    }
+
+    private fun parallax() {
+        binding.appbar.addOnOffsetChangedListener(object : AppBarStateChangeListener() {
+            override fun onStateChanged(appBarLayout: AppBarLayout?, state: State?) {
+                binding.toolbar.visibility = when (state) {
+                    State.EXPANDED -> View.GONE
+                    State.COLLAPSED -> View.VISIBLE
+                    else -> View.GONE
+                }
+            }
+        })
     }
 
     @ExperimentalCoroutinesApi
@@ -86,14 +101,16 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics), OnBackPressed
         binding.apply {
             connectionError.visibility = if (isDisplayed) View.VISIBLE else View.GONE
             connectionErrorText.visibility = if (isDisplayed) View.VISIBLE else View.GONE
-            page.visibility = if (isDisplayed) View.GONE else View.VISIBLE
+            nestedScrollView.visibility = if (isDisplayed) View.GONE else View.VISIBLE
+            appbar.visibility = if (isDisplayed) View.GONE else View.VISIBLE
         }
     }
 
     private fun displayProgressBar(isDisplayed: Boolean) {
         binding.apply {
             loading.visibility = if (isDisplayed) View.VISIBLE else View.GONE
-            page.visibility = if (isDisplayed) View.GONE else View.VISIBLE
+            nestedScrollView.visibility = if (isDisplayed) View.GONE else View.VISIBLE
+            appbar.visibility = if (isDisplayed) View.GONE else View.VISIBLE
         }
     }
 

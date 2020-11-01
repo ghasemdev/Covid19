@@ -142,14 +142,14 @@ class HomeFragment : Fragment(R.layout.fragment_home), OnBackPressedListener,
         binding.apply {
             connectionError.visibility = if (isDisplayed) View.VISIBLE else View.GONE
             connectionErrorText.visibility = if (isDisplayed) View.VISIBLE else View.GONE
-            page.visibility = if (isDisplayed) View.GONE else View.VISIBLE
+            nestedScrollView.visibility = if (isDisplayed) View.GONE else View.VISIBLE
         }
     }
 
     private fun displayProgressBar(isDisplayed: Boolean) {
         binding.apply {
             loading.visibility = if (isDisplayed) View.VISIBLE else View.GONE
-            page.visibility = if (isDisplayed) View.GONE else View.VISIBLE
+            nestedScrollView.visibility = if (isDisplayed) View.GONE else View.VISIBLE
         }
     }
 

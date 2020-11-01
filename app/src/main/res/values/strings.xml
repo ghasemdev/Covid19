@@ -22,5 +22,9 @@
     <string name="fatality_rate">Fatality Rate</string>
     <string name="last_update">Last Update</string>
     <string name="total_case">Total Case</string>
+    <string name="statistics">Statistics</string>
+    <string name="search_for_country">Search for country</string>
+    <string name="country">Country</string>
+    <string name="search">Search</string>
 
 </resources>
