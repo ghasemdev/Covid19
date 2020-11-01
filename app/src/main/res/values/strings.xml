@@ -26,5 +26,7 @@
     <string name="search_for_country">Search for country</string>
     <string name="country">Country</string>
     <string name="search">Search</string>
+    <string name="refresh">Refresh</string>
+    <string name="more">More</string>
 
 </resources>

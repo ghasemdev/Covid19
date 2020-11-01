@@ -46,6 +46,7 @@
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/background"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             app:toolbarId="@+id/toolbar">
 
@@ -60,27 +61,58 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_gravity="bottom"
-                android:layout_marginEnd="16dp"
                 android:background="@color/background"
                 android:visibility="gone"
-                app:menu="@menu/statistics_menu">
+                app:navigationIcon="@drawable/ic_arrow_back">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <ImageView
-                        android:id="@+id/imageView2"
+                        android:id="@+id/toolbar_more"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
+                        android:layout_marginEnd="16dp"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:clickable="true"
                         android:focusable="true"
                         android:padding="2dp"
-                        android:src="@drawable/ic_arrow_back"
+                        android:src="@drawable/ic_more"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/icon_color"
+                        tools:ignore="ContentDescription" />
+
+                    <ImageView
+                        android:id="@+id/toolbar_refresh"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginEnd="4dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:padding="2dp"
+                        android:src="@drawable/ic_refresh"
+                        app:layout_constraintBottom_toBottomOf="@+id/toolbar_more"
+                        app:layout_constraintEnd_toStartOf="@+id/toolbar_more"
+                        app:layout_constraintTop_toTopOf="@+id/toolbar_more"
+                        tools:ignore="ContentDescription" />
+
+                    <ImageView
+                        android:id="@+id/toolbar_search"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:padding="2dp"
+                        android:src="@drawable/ic_search"
+                        app:layout_constraintBottom_toBottomOf="@+id/toolbar_refresh"
+                        app:layout_constraintEnd_toStartOf="@+id/toolbar_refresh"
+                        app:layout_constraintTop_toTopOf="@+id/toolbar_refresh"
                         tools:ignore="ContentDescription" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.appcompat.widget.Toolbar>

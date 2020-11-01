@@ -26,4 +26,6 @@
     <string name="search_for_country">جست و جو</string>
     <string name="country">کشور ها</string>
     <string name="search">جست و جو</string>
+    <string name="refresh">تازه سازی</string>
+    <string name="more">بیشتر</string>
 </resources>

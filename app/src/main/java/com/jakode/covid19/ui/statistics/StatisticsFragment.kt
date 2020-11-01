@@ -3,8 +3,10 @@ package com.jakode.covid19.ui.statistics
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.appbar.AppBarLayout
 import com.jakode.covid19.R
 import com.jakode.covid19.databinding.FragmentStatisticsBinding
@@ -13,6 +15,7 @@ import com.jakode.covid19.ui.MainActivity
 import com.jakode.covid19.ui.home.MainStateEvent
 import com.jakode.covid19.utils.AppBarStateChangeListener
 import com.jakode.covid19.utils.DataState
+import com.jakode.covid19.utils.popup.DetailsPopup
 import com.jakode.covid19.utils.OnBackPressedListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -31,11 +34,59 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics), OnBackPressed
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentStatisticsBinding.bind(view)
         observe()
-        refresh()
         parallax()
+        toolbar()
+        header()
 
         // impalement onBackPressed
         (activity as MainActivity).setOnBackPressedListener(this)
+    }
+
+    private fun header() {
+        binding.toolbarHeader.apply {
+            backInHeader.setOnClickListener {
+                findNavController().navigateUp()
+            }
+        }
+    }
+
+    @ExperimentalCoroutinesApi
+    private fun toolbar() {
+        // Set toolbar and menu
+        binding.apply {
+            (activity as AppCompatActivity?)!!.setSupportActionBar(toolbar)
+            toolbar.setNavigationOnClickListener {
+                findNavController().navigateUp()
+            }
+
+            toolbarMore.setOnClickListener { }
+            toolbarRefresh.setOnClickListener {
+                displayError(false)
+                viewModel.setStateEvent(MainStateEvent.GetBlogEvents, true)
+            }
+            toolbarSearch.setOnClickListener { }
+
+            toolbarMore.setOnLongClickListener {
+                popup(R.id.toolbar_more, 0, getString(R.string.more))
+            }
+            toolbarRefresh.setOnLongClickListener {
+                popup(R.id.toolbar_refresh, -50, getString(R.string.refresh))
+            }
+            toolbarSearch.setOnLongClickListener {
+                popup(R.id.toolbar_search, -50, getString(R.string.search))
+            }
+        }
+    }
+
+    private fun popup(resource: Int, x: Int, massage: String): Boolean {
+        DetailsPopup().Builder {
+            anchor = requireView().findViewById(resource)
+            layoutResource = R.layout.details_popup_layout
+            coordinates.x = x
+            elevation = 5F
+            popupTexts = listOf(massage)
+        }.build()
+        return true
     }
 
     private fun parallax() {
@@ -48,17 +99,6 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics), OnBackPressed
                 }
             }
         })
-    }
-
-    @ExperimentalCoroutinesApi
-    private fun refresh() {
-        binding.apply {
-//            refreshLayout.setOnRefreshListener {
-//                displayError(false)
-//                viewModel.setStateEvent(MainStateEvent.GetBlogEvents, true)
-//                refreshLayout.isRefreshing = false
-//            }
-        }
     }
 
     @ExperimentalCoroutinesApi
@@ -102,7 +142,6 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics), OnBackPressed
             connectionError.visibility = if (isDisplayed) View.VISIBLE else View.GONE
             connectionErrorText.visibility = if (isDisplayed) View.VISIBLE else View.GONE
             nestedScrollView.visibility = if (isDisplayed) View.GONE else View.VISIBLE
-            appbar.visibility = if (isDisplayed) View.GONE else View.VISIBLE
         }
     }
 
@@ -110,7 +149,6 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics), OnBackPressed
         binding.apply {
             loading.visibility = if (isDisplayed) View.VISIBLE else View.GONE
             nestedScrollView.visibility = if (isDisplayed) View.GONE else View.VISIBLE
-            appbar.visibility = if (isDisplayed) View.GONE else View.VISIBLE
         }
     }
 
