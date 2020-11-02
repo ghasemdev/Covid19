@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
+    app:layoutDescription="@xml/fragment_statistics_scene"
     tools:context=".ui.statistics.StatisticsFragment">
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/loading"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_gravity="center"
         android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/loading" />
@@ -20,8 +25,12 @@
         android:id="@+id/connection_error"
         android:layout_width="110dp"
         android:layout_height="110dp"
-        android:layout_gravity="center"
         android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.45"
         app:lottie_autoPlay="true"
         app:lottie_rawRes="@raw/no_internet_connection" />
 
@@ -29,123 +38,86 @@
         android:id="@+id/connection_error_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginTop="16dp"
         android:text="@string/network_error"
         android:textColor="@color/color_secondary_text"
         android:textSize="16sp"
         android:visibility="invisible"
-        app:layout_anchor="@id/connection_error"
-        app:layout_anchorGravity="bottom|center_horizontal" />
+        app:layout_constraintEnd_toEndOf="@+id/connection_error"
+        app:layout_constraintStart_toStartOf="@+id/connection_error"
+        app:layout_constraintTop_toBottomOf="@+id/connection_error" />
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent">
+    <ImageView
+        android:id="@+id/toolbar_back"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="15dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="2dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow_back"
+        tools:ignore="ContentDescription" />
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/background"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-            app:toolbarId="@+id/toolbar">
+    <ImageView
+        android:id="@+id/toolbar_search"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="8dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="2dp"
+        android:src="@drawable/ic_search"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar_back"
+        app:layout_constraintEnd_toStartOf="@+id/toolbar_more"
+        app:layout_constraintTop_toTopOf="@+id/toolbar_back"
+        tools:ignore="ContentDescription"
+        tools:layout_conversion_absoluteHeight="0dp"
+        tools:layout_conversion_absoluteWidth="0dp" />
 
-            <include
-                android:id="@+id/toolbar_header"
-                layout="@layout/header_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="260dp" />
+    <ImageView
+        android:id="@+id/toolbar_more"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="2dp"
+        android:src="@drawable/ic_more"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar_search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar_search"
+        app:tint="@color/icon_color"
+        tools:ignore="ContentDescription"
+        tools:layout_conversion_absoluteHeight="0dp"
+        tools:layout_conversion_absoluteWidth="0dp" />
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_gravity="bottom"
-                android:background="@color/background"
-                android:visibility="gone"
-                app:navigationIcon="@drawable/ic_arrow_back">
+    <include
+        android:id="@+id/header"
+        layout="@layout/header_toolbar"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_back" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/toolbar_more"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginEnd="16dp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:padding="2dp"
-                        android:src="@drawable/ic_more"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:tint="@color/icon_color"
-                        tools:ignore="ContentDescription" />
-
-                    <ImageView
-                        android:id="@+id/toolbar_refresh"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginEnd="4dp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:padding="2dp"
-                        android:src="@drawable/ic_refresh"
-                        app:layout_constraintBottom_toBottomOf="@+id/toolbar_more"
-                        app:layout_constraintEnd_toStartOf="@+id/toolbar_more"
-                        app:layout_constraintTop_toTopOf="@+id/toolbar_more"
-                        tools:ignore="ContentDescription" />
-
-                    <ImageView
-                        android:id="@+id/toolbar_search"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginEnd="8dp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:padding="2dp"
-                        android:src="@drawable/ic_search"
-                        app:layout_constraintBottom_toBottomOf="@+id/toolbar_refresh"
-                        app:layout_constraintEnd_toStartOf="@+id/toolbar_refresh"
-                        app:layout_constraintTop_toTopOf="@+id/toolbar_refresh"
-                        tools:ignore="ContentDescription" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.appcompat.widget.Toolbar>
-
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScrollView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/background"
-        android:fillViewport="true"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/statistics_list"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layoutAnimation="@anim/layout_animation_slide_from_bottom"
-                android:overScrollMode="never"
-                android:scrollbars="vertical"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:itemCount="10"
-                tools:listitem="@layout/statistic_item" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/statistics_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layoutAnimation="@anim/layout_animation_slide_from_bottom"
+        android:overScrollMode="never"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header" />
+</androidx.constraintlayout.motion.widget.MotionLayout>

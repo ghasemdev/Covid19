@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@id/start"
+        motion:duration="1000">
+        <KeyFrameSet>
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="100"
+                motion:motionTarget="@+id/header" />
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="50"
+                motion:motionTarget="@+id/header" />
+        </KeyFrameSet>
+        <OnSwipe motion:touchAnchorId="@+id/statistics_list" />
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            android:id="@+id/toolbar_more"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="16dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toBottomOf="@+id/toolbar_search"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintTop_toTopOf="@+id/toolbar_search" />
+        <Constraint
+            android:id="@+id/toolbar_search"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="8dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toBottomOf="@+id/toolbar_back"
+            motion:layout_constraintEnd_toStartOf="@+id/toolbar_more"
+            motion:layout_constraintTop_toTopOf="@+id/toolbar_back" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+        <Constraint
+            android:id="@+id/toolbar_search"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="8dp"
+            android:visibility="visible"
+            motion:layout_constraintBottom_toBottomOf="@+id/toolbar_back"
+            motion:layout_constraintEnd_toStartOf="@+id/toolbar_more"
+            motion:layout_constraintTop_toTopOf="@+id/toolbar_back" />
+        <Constraint
+            android:id="@+id/toolbar_more"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="16dp"
+            android:visibility="visible"
+            motion:layout_constraintBottom_toBottomOf="@+id/toolbar_search"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintTop_toTopOf="@+id/toolbar_search" />
+    </ConstraintSet>
+</MotionScene>
