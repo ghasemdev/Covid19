@@ -22,6 +22,8 @@ import com.jakode.covid19.model.Global
 import com.jakode.covid19.model.StatisticsAndGlobal
 import com.jakode.covid19.model.Statistics
 import com.jakode.covid19.ui.MainActivity
+import com.jakode.covid19.ui.adapter.ViewType
+import com.jakode.covid19.ui.adapter.ViewTypeAdapter
 import com.jakode.covid19.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -33,8 +35,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), OnBackPressedListener,
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private var topCountry: List<Statistics> = listOf()
-    private var topCountryAdapter: TopCountryAdapter? = null
+    private var topCountryAdapter: ViewTypeAdapter<ViewType<*>>? = null
 
     private lateinit var globalInfo: List<PieEntry>
     private val chartColors = listOf(
@@ -115,12 +116,12 @@ class HomeFragment : Fragment(R.layout.fragment_home), OnBackPressedListener,
     }
 
     private fun setStatistic(statistics: List<Statistics>) {
-        topCountry = statistics
-        topCountryRecycler()
+        val topCountry = ArrayList<ViewType<*>>(statistics.map { TopCountryViewType(it) })
+        topCountryRecycler(topCountry)
     }
 
-    private fun topCountryRecycler() {
-        topCountryAdapter = TopCountryAdapter(topCountry)
+    private fun topCountryRecycler(topCountry: ArrayList<ViewType<*>>) {
+        topCountryAdapter = ViewTypeAdapter(topCountry)
         binding.topCountry.apply {
             adapter = topCountryAdapter!!
             setHasFixedSize(true)

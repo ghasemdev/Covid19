@@ -10,10 +10,12 @@ import com.jakode.covid19.R
 import com.jakode.covid19.databinding.FragmentStatisticsBinding
 import com.jakode.covid19.model.Statistics
 import com.jakode.covid19.ui.MainActivity
+import com.jakode.covid19.ui.adapter.ViewType
+import com.jakode.covid19.ui.adapter.ViewTypeAdapter
 import com.jakode.covid19.ui.home.MainStateEvent
 import com.jakode.covid19.utils.DataState
 import com.jakode.covid19.utils.OnBackPressedListener
-import com.jakode.covid19.utils.popup.DetailsPopup
+import com.jakode.covid19.ui.popup.DetailsPopup
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -23,8 +25,7 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics), OnBackPressed
     private var _binding: FragmentStatisticsBinding? = null
     private val binding get() = _binding!!
 
-    private var statisticsList: List<Statistics> = listOf()
-    private var statisticsAdapter: StatisticsAdapter? = null
+    private var statisticsAdapter: ViewTypeAdapter<ViewType<*>>? = null
 
     @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -97,12 +98,12 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics), OnBackPressed
     }
 
     private fun setStatistic(statistics: List<Statistics>) {
-        statisticsList = statistics
-        countryRecycler()
+        val statisticsList = ArrayList<ViewType<*>>(statistics.map { StatisticsViewType(it) })
+        countryRecycler(statisticsList)
     }
 
-    private fun countryRecycler() {
-        statisticsAdapter = StatisticsAdapter(statisticsList)
+    private fun countryRecycler(statisticsList: ArrayList<ViewType<*>>) {
+        statisticsAdapter = ViewTypeAdapter(statisticsList)
         binding.statisticsList.apply {
             adapter = statisticsAdapter!!
             setHasFixedSize(true)
@@ -116,18 +117,19 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics), OnBackPressed
         binding.apply {
             connectionError.visibility = View.VISIBLE
             connectionErrorText.visibility = View.VISIBLE
-//            nestedScrollView.visibility = View.GONE
+            statisticsList.visibility = View.GONE
         }
     }
 
     private fun displayProgressBar(isDisplayed: Boolean) {
         binding.apply {
             loading.visibility = if (isDisplayed) View.VISIBLE else View.GONE
-//            nestedScrollView.visibility = if (isDisplayed) View.GONE else View.VISIBLE
+            statisticsList.visibility = if (isDisplayed) View.GONE else View.VISIBLE
         }
     }
 
     override fun onDestroyView() {
+        statisticsAdapter = null
         _binding = null
         super.onDestroyView()
     }

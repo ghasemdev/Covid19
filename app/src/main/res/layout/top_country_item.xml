@@ -8,8 +8,16 @@
         <import type="com.jakode.covid19.utils.ExtensionKt" />
 
         <variable
-            name="Statistic"
+            name="model"
             type="com.jakode.covid19.model.Statistics" />
+
+        <!--<variable
+            name="actionItemListener"
+            type="com.grvexample.ui.OnSingleChoiceClickListener" />-->
+
+        <variable
+            name="position"
+            type="Integer" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -67,7 +75,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="@{Statistic.country}"
+                        android:text="@{model.country}"
                         android:textColor="@color/color_secondary_text"
                         android:textSize="16sp"
                         android:textStyle="bold"
@@ -93,7 +101,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="13dp"
-                        android:text="@{ExtensionKt.formatShortcut(Statistic.cases.recovered)}"
+                        android:text="@{ExtensionKt.formatShortcut(model.cases.recovered)}"
                         android:textColor="@color/color_secondary_text"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="@+id/recovered"
@@ -118,7 +126,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="13dp"
-                        android:text="@{ExtensionKt.formatShortcut(Statistic.cases.total)}"
+                        android:text="@{ExtensionKt.formatShortcut(model.cases.total)}"
                         android:textColor="@color/color_secondary_text"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="@+id/total_case"
@@ -143,7 +151,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="13dp"
-                        android:text="@{ExtensionKt.formatShortcut(Statistic.deaths.total)}"
+                        android:text="@{ExtensionKt.formatShortcut(model.deaths.total)}"
                         android:textColor="@color/color_secondary_text"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="@+id/deaths"
@@ -155,7 +163,7 @@
                         android:id="@+id/new_case_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{Statistic.cases.new}"
+                        android:text="@{model.cases.new}"
                         android:textColor="#E91E1E"
                         android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="@+id/total_case_value"
@@ -166,7 +174,7 @@
                         android:id="@+id/new_death_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{Statistic.deaths.new}"
+                        android:text="@{model.deaths.new}"
                         android:textColor="#E91E1E"
                         android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="@+id/deaths_value"
@@ -184,7 +192,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/constraintLayout"
-            app:setImage="@{Statistic.flag}"
+            app:setImage="@{model.flag}"
             tools:ignore="ContentDescription"
             tools:srcCompat="@drawable/ic_usa" />
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="Slider"
+            name="model"
             type="com.jakode.covid19.model.Slider" />
     </data>
 
@@ -24,7 +24,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.3"
-            app:setImage="@{Slider.icon}"
+            app:setImage="@{model.icon}"
             tools:ignore="ContentDescription"
             tools:srcCompat="@drawable/use_nose_rag" />
 
@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="@{Slider.title}"
+            android:text="@{model.title}"
             android:textColor="@color/color_primary_text"
             android:textSize="25sp"
             android:textStyle="bold"
@@ -50,7 +50,7 @@
             android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
             android:gravity="center"
-            android:text="@{Slider.description}"
+            android:text="@{model.description}"
             android:textColor="@color/color_secondary_text"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"

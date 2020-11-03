@@ -11,6 +11,8 @@ import com.jakode.covid19.R
 import com.jakode.covid19.databinding.FragmentIntroBinding
 import com.jakode.covid19.model.Slider
 import com.jakode.covid19.ui.MainActivity
+import com.jakode.covid19.ui.adapter.ViewType
+import com.jakode.covid19.ui.adapter.ViewTypeAdapter
 import com.jakode.covid19.utils.OnBackPressedListener
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,7 +23,7 @@ class IntroFragment : Fragment(R.layout.fragment_intro), OnBackPressedListener {
     private val binding get() = _binding!!
 
     private val adapterSize = 3
-    private var introSliderAdapter: IntroAdapter? = null
+    private var introSliderAdapter: ViewTypeAdapter<ViewType<*>>? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -58,22 +60,28 @@ class IntroFragment : Fragment(R.layout.fragment_intro), OnBackPressedListener {
     }
 
     private fun initializeAdapter() {
-        introSliderAdapter = IntroAdapter(
-            listOf(
-                Slider(
-                    icon = R.drawable.wash_your_hand,
-                    title = getString(R.string.wash_hand_title),
-                    description = getString(R.string.wash_hand_desc)
+        introSliderAdapter = ViewTypeAdapter(
+            mutableListOf(
+                IntroViewType(
+                    Slider(
+                        icon = R.drawable.wash_your_hand,
+                        title = getString(R.string.wash_hand_title),
+                        description = getString(R.string.wash_hand_desc)
+                    )
                 ),
-                Slider(
-                    icon = R.drawable.wear_mask,
-                    title = getString(R.string.wear_mask_title),
-                    description = getString(R.string.wear_mask_desc)
+                IntroViewType(
+                    Slider(
+                        icon = R.drawable.wear_mask,
+                        title = getString(R.string.wear_mask_title),
+                        description = getString(R.string.wear_mask_desc)
+                    )
                 ),
-                Slider(
-                    icon = R.drawable.use_nose_rag,
-                    title = getString(R.string.use_nose_rag_title),
-                    description = getString(R.string.use_nose_rag_desc)
+                IntroViewType(
+                    Slider(
+                        icon = R.drawable.use_nose_rag,
+                        title = getString(R.string.use_nose_rag_title),
+                        description = getString(R.string.use_nose_rag_desc)
+                    )
                 )
             )
         )
