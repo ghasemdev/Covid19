@@ -114,8 +114,8 @@ class ViewTypeAdapter<E : ViewType<*>>(
             when (model) {
                 is Statistics -> {
                     model.apply { flag = getResources(binding.root.context, model.country) }
-                    binding.setVariable(BR.position, adapterPosition)
-                    /*binding.setVariable(BR.actionItemListener, onItemActionListener)*/
+                    /*binding.setVariable(BR.position, adapterPosition)
+                    binding.setVariable(BR.actionItemListener, onItemActionListener)*/
                 }
             }
             binding.setVariable(BR.model, model)

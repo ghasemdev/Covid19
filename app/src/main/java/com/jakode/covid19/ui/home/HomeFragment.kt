@@ -48,6 +48,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), OnBackPressedListener,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentHomeBinding.bind(view)
+        topCountryRecycler()
         observe()
         refresh()
         globalExpand()
@@ -99,7 +100,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), OnBackPressedListener,
             when (dataState) {
                 is DataState.Success<StatisticsAndGlobal> -> {
                     displayProgressBar(false)
-                    setStatistic(dataState.data.statistics)
+                    setStatistics(dataState.data.statistics)
                     setGlobalInfo(dataState.data.global)
                     binding.global = dataState.data.global
                     pieChart()
@@ -115,15 +116,15 @@ class HomeFragment : Fragment(R.layout.fragment_home), OnBackPressedListener,
         })
     }
 
-    private fun setStatistic(statistics: List<Statistics>) {
+    private fun setStatistics(statistics: List<Statistics>) {
         val topCountry = ArrayList<ViewType<*>>(statistics.map { TopCountryViewType(it) })
-        topCountryRecycler(topCountry)
+        topCountryAdapter!!.setList(topCountry)
     }
 
-    private fun topCountryRecycler(topCountry: ArrayList<ViewType<*>>) {
-        topCountryAdapter = ViewTypeAdapter(topCountry)
+    private fun topCountryRecycler() {
+        topCountryAdapter = ViewTypeAdapter()
         binding.topCountry.apply {
-            adapter = topCountryAdapter!!
+            adapter = topCountryAdapter
             setHasFixedSize(true)
         }
     }

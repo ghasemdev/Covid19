@@ -31,6 +31,7 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics), OnBackPressed
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentStatisticsBinding.bind(view)
+        countryRecycler()
         observe()
         toolbar()
         header()
@@ -99,13 +100,13 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics), OnBackPressed
 
     private fun setStatistic(statistics: List<Statistics>) {
         val statisticsList = ArrayList<ViewType<*>>(statistics.map { StatisticsViewType(it) })
-        countryRecycler(statisticsList)
+        statisticsAdapter!!.setList(statisticsList)
     }
 
-    private fun countryRecycler(statisticsList: ArrayList<ViewType<*>>) {
-        statisticsAdapter = ViewTypeAdapter(statisticsList)
+    private fun countryRecycler() {
+        statisticsAdapter = ViewTypeAdapter()
         binding.statisticsList.apply {
-            adapter = statisticsAdapter!!
+            adapter = statisticsAdapter
             setHasFixedSize(true)
         }
     }
