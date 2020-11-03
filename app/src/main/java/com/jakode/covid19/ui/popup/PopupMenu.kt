@@ -1,4 +1,4 @@
-package com.jakode.covid19.utils.popup
+package com.jakode.covid19.ui.popup
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.widget.LinearLayout
 import android.widget.PopupWindow
 import kotlin.properties.Delegates
 
-abstract class BasicPopup {
+abstract class PopupMenu {
     private lateinit var inflater: LayoutInflater
     lateinit var popupView: View
     lateinit var popupWindow: PopupWindow
@@ -35,14 +35,14 @@ abstract class BasicPopup {
         }
     }
 
-    abstract fun newInstance(): BasicPopup
-    abstract fun clickListener(listeners: List<() -> Unit>)
+    abstract fun newInstance(): PopupMenu
+    abstract fun clickListener(listeners: List<PopupClickListener>)
     abstract fun initialize(popupTexts: List<String>)
 
     inner class Builder(initialize: Builder.() -> Unit) {
         lateinit var anchor: View
         lateinit var popupTexts: List<String>
-        var listeners: List<() -> Unit> = listOf {}
+        lateinit var listeners: List<PopupClickListener>
 
         val coordinates: Coordinates by lazy { Coordinates() }
         var layoutResource by Delegates.notNull<Int>()
@@ -53,14 +53,14 @@ abstract class BasicPopup {
             initialize()
         }
 
-        fun build(): BasicPopup {
+        fun build(): PopupMenu {
             return newInstance().apply {
                 inflate(anchor)
                 createView(layoutResource)
                 createWindow(focusable, elevation, anchor, coordinates)
 
                 initialize(popupTexts)
-                clickListener(listeners)
+                if (::listeners.isInitialized) clickListener(listeners)
             }
         }
 
