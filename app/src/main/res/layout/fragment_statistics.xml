@@ -113,7 +113,6 @@
         android:id="@+id/statistics_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layoutAnimation="@anim/layout_animation_slide_from_bottom"
         android:overScrollMode="never"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"

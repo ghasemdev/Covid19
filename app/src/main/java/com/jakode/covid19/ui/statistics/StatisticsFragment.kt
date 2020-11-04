@@ -3,6 +3,7 @@ package com.jakode.covid19.ui.statistics
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -12,10 +13,11 @@ import com.jakode.covid19.model.Statistics
 import com.jakode.covid19.ui.MainActivity
 import com.jakode.covid19.ui.adapter.ViewType
 import com.jakode.covid19.ui.adapter.ViewTypeAdapter
+import com.jakode.covid19.ui.dialogs.PopupMenu
+import com.jakode.covid19.ui.dialogs.filter.FilterDialog
 import com.jakode.covid19.ui.home.MainStateEvent
 import com.jakode.covid19.utils.DataState
 import com.jakode.covid19.utils.OnBackPressedListener
-import com.jakode.covid19.ui.popup.DetailsPopup
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -42,8 +44,13 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics), OnBackPressed
 
     private fun header() {
         binding.header.apply {
-
+            cardFilter.setOnClickListener { bottomSheet() }
         }
+    }
+
+    private fun bottomSheet() {
+        FilterDialog(R.layout.filter_layout)
+            .show(requireActivity().supportFragmentManager, "FILTER_DIALOG")
     }
 
     private fun toolbar() {
@@ -58,29 +65,24 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics), OnBackPressed
             toolbarSearch.setOnClickListener { }
 
             toolbarMore.setOnLongClickListener {
-                popup(R.id.toolbar_more, getString(R.string.more))
+                popup(getString(R.string.more), R.id.toolbar_more)
             }
 
             toolbarSearch.setOnLongClickListener {
-                popup(R.id.toolbar_search, getString(R.string.search))
+                popup(getString(R.string.search), R.id.toolbar_search)
             }
         }
     }
 
-    private fun popup(resource: Int, massage: String): Boolean {
-        DetailsPopup().Builder {
-            anchor = requireView().findViewById(resource)
-            layoutResource = R.layout.details_popup_layout
-            coordinates.x = -50
-            elevation = 5F
-            popupTexts = listOf(massage)
-        }.build()
+    private fun popup(text: String, resource: Int): Boolean {
+        val anchor: View = requireView().findViewById(resource)
+        PopupMenu.show(text, anchor, -50, 0)
         return true
     }
 
     @ExperimentalCoroutinesApi
     private fun observe() {
-        viewModel.setStateEvent(MainStateEvent.GetBlogEvents, false)
+        viewModel.setStateEvent(MainStateEvent.GetBlogEvents)
         viewModel.dataState.observe(viewLifecycleOwner, { dataState ->
             when (dataState) {
                 is DataState.Success<List<Statistics>> -> {
@@ -101,6 +103,11 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics), OnBackPressed
     private fun setStatistic(statistics: List<Statistics>) {
         val statisticsList = ArrayList<ViewType<*>>(statistics.map { StatisticsViewType(it) })
         statisticsAdapter!!.setList(statisticsList)
+
+        AnimationUtils.loadLayoutAnimation(
+            requireContext(),
+            R.anim.layout_animation_slide_from_bottom
+        ).also { binding.statisticsList.layoutAnimation = it }
     }
 
     private fun countryRecycler() {

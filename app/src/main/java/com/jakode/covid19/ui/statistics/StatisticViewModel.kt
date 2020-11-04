@@ -7,6 +7,7 @@ import com.jakode.covid19.data.AppRepository
 import com.jakode.covid19.model.Statistics
 import com.jakode.covid19.ui.home.MainStateEvent
 import com.jakode.covid19.utils.DataState
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -20,11 +21,11 @@ class StatisticViewModel @ViewModelInject constructor(
     val dataState: LiveData<DataState<List<Statistics>>> get() = _dataState
 
     @ExperimentalCoroutinesApi
-    fun setStateEvent(mainStateEvent: MainStateEvent, isRefreshed: Boolean) {
-        viewModelScope.launch {
+    fun setStateEvent(mainStateEvent: MainStateEvent) {
+        viewModelScope.launch(Dispatchers.IO) {
             when (mainStateEvent) {
                 is MainStateEvent.GetBlogEvents -> {
-                    appRepository.getStatistics(isRefreshed).onEach { data ->
+                    appRepository.getStatistics().onEach { data ->
                         _dataState.value = data
                     }.launchIn(viewModelScope)
                 }

@@ -29,4 +29,17 @@
     <string name="refresh">Refresh</string>
     <string name="more">More</string>
 
+    <string name="sets_filter">Sets Filter</string>
+    <string name="asc">Asc</string>
+    <string name="des">Des</string>
+    <string name="continent">CONTINENT</string>
+    <string name="all">All</string>
+    <string name="oceania">Oceania</string>
+    <string name="north_america">North America</string>
+    <string name="south_america">South America</string>
+    <string name="asia">Asia</string>
+    <string name="europe">Europe</string>
+    <string name="africa">Africa</string>
+    <string name="sorted_by">SORTED BY</string>
+    <string name="apply_filter">Apply Filter</string>
 </resources>

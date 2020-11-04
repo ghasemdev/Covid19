@@ -83,11 +83,11 @@ class AppRepository(
         }
     }
 
-    suspend fun getStatistics(isRefreshed: Boolean): Flow<DataState<List<Statistics>>> = flow {
+    suspend fun getStatistics(): Flow<DataState<List<Statistics>>> = flow {
         emit(DataState.Loading)
         checkCacheDuration()
         val updateTime = dataStore.readTime.first()
-        if (updateTime != 0L && System.nanoTime() - updateTime < refreshTime && !isRefreshed) {
+        if (updateTime != 0L && System.nanoTime() - updateTime < refreshTime) {
             // Fetch from database
             val cacheStatistics = statisticsDao.getAll()
             val statistics = cacheMapper.mapFromEntityList(cacheStatistics)
