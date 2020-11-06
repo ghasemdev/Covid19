@@ -35,8 +35,8 @@
     <string name="continent">CONTINENT</string>
     <string name="all">All</string>
     <string name="oceania">Oceania</string>
-    <string name="north_america">North America</string>
-    <string name="south_america">South America</string>
+    <string name="north_america">North-America</string>
+    <string name="south_america">South-America</string>
     <string name="asia">Asia</string>
     <string name="europe">Europe</string>
     <string name="africa">Africa</string>

@@ -1,6 +1,7 @@
 package com.jakode.covid19.ui.statistics
 
 import android.os.Bundle
+import android.os.Parcel
 import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
@@ -14,7 +15,8 @@ import com.jakode.covid19.ui.MainActivity
 import com.jakode.covid19.ui.adapter.ViewType
 import com.jakode.covid19.ui.adapter.ViewTypeAdapter
 import com.jakode.covid19.ui.dialogs.PopupMenu
-import com.jakode.covid19.ui.dialogs.filter.FilterDialog
+import com.jakode.covid19.ui.filter.FilterDialog
+import com.jakode.covid19.ui.filter.OnFilterDialogListener
 import com.jakode.covid19.ui.home.MainStateEvent
 import com.jakode.covid19.utils.DataState
 import com.jakode.covid19.utils.OnBackPressedListener
@@ -23,11 +25,13 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @AndroidEntryPoint
 class StatisticsFragment : Fragment(R.layout.fragment_statistics), OnBackPressedListener {
+
     private val viewModel: StatisticViewModel by viewModels()
     private var _binding: FragmentStatisticsBinding? = null
     private val binding get() = _binding!!
 
     private var statisticsAdapter: ViewTypeAdapter<ViewType<*>>? = null
+    private lateinit var statisticsList: List<ViewType<*>>
 
     @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,8 +53,48 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics), OnBackPressed
     }
 
     private fun bottomSheet() {
-        FilterDialog(R.layout.filter_layout)
-            .show(requireActivity().supportFragmentManager, "FILTER_DIALOG")
+        FilterDialog(R.layout.filter_layout, object : OnFilterDialogListener {
+            override fun onApplyClicked(
+                handlers: FilterDialog.MyHandlers,
+                order: Boolean,
+                continent: String,
+                sortBy: String
+            ) {
+                statisticsAdapter?.let {
+                    it.setList(filter(order, continent, sortBy))
+                    animateList()
+                }
+                handlers.onClose()
+            }
+
+            private fun filter(
+                order: Boolean,
+                continent: String,
+                sortBy: String
+            ): List<ViewType<*>> {
+                var list = statisticsList
+
+                if (continent != "All")
+                    list = list.filter { (it.data() as Statistics).continent == continent }
+
+                return when {
+                    order && sortBy == "Total Case" -> list.sortedBy { (it.data() as Statistics).cases.total }
+                    order && sortBy == "Deaths" -> list.sortedBy { (it.data() as Statistics).deaths.total }
+                    order && sortBy == "Country" -> list.sortedByDescending { (it.data() as Statistics).country }
+                    order && sortBy == "Recovered" -> list.sortedBy { (it.data() as Statistics).cases.recovered }
+
+                    !order && sortBy == "Total Case" -> list.sortedByDescending { (it.data() as Statistics).cases.total }
+                    !order && sortBy == "Deaths" -> list.sortedByDescending { (it.data() as Statistics).deaths.total }
+                    !order && sortBy == "Country" -> list.sortedBy { (it.data() as Statistics).country }
+                    !order && sortBy == "Recovered" -> list.sortedByDescending { (it.data() as Statistics).cases.recovered }
+                    else -> list
+                }
+            }
+
+            override fun describeContents() = 0
+            override fun writeToParcel(dest: Parcel?, flags: Int) {}
+
+        }).show(requireActivity().supportFragmentManager, "FILTER_DIALOG")
     }
 
     private fun toolbar() {
@@ -101,9 +145,12 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics), OnBackPressed
     }
 
     private fun setStatistic(statistics: List<Statistics>) {
-        val statisticsList = ArrayList<ViewType<*>>(statistics.map { StatisticsViewType(it) })
+        statisticsList = ArrayList(statistics.map { StatisticsViewType(it) })
         statisticsAdapter!!.setList(statisticsList)
+        animateList()
+    }
 
+    private fun animateList() {
         AnimationUtils.loadLayoutAnimation(
             requireContext(),
             R.anim.layout_animation_slide_from_bottom
