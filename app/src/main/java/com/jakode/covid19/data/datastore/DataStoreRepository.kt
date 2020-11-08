@@ -17,6 +17,7 @@ class DataStoreRepository(context: Context) {
         val state = preferencesKey<Boolean>("mode")
         val time = preferencesKey<Long>("time")
         val cacheDuration = preferencesKey<String>("duration")
+        val filter = preferencesKey<String>("filter")
     }
 
     private val dataStore: DataStore<Preferences> = context.createDataStore(
@@ -80,6 +81,26 @@ class DataStoreRepository(context: Context) {
     suspend fun saveDuration(duration: Long) {
         dataStore.edit { preference ->
             preference[PreferenceKey.cacheDuration] = duration.toString()
+        }
+    }
+
+    val readFilter: Flow<String> = dataStore.data
+        .catch { exception ->
+            if (exception is IOException) {
+                Log.d("DATA_STORE", exception.message.toString())
+                emit(emptyPreferences())
+            } else {
+                throw exception
+            }
+        }
+        .map { preference ->
+            val sortBy = preference[PreferenceKey.filter] ?: "false;All;Total Case"
+            sortBy
+        }
+
+    suspend fun saveFilter(filter: String) {
+        dataStore.edit { preference ->
+            preference[PreferenceKey.filter] = filter
         }
     }
 }

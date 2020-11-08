@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -18,32 +17,27 @@ import com.jakode.covid19.utils.getColor
 import com.jakode.covid19.utils.isDarkTheme
 
 class FilterDialog : BottomSheetDialogFragment() {
-    private var binding: FilterLayoutBinding? = null
+    private var _binding: FilterLayoutBinding? = null
+    private val binding get() = _binding!!
 
-    private lateinit var listener: OnFilterDialogListener
+    private lateinit var dialog: BottomSheetDialog
 
     companion object {
-        private const val RESOURCE_KEY = "RESOURCE"
         private const val LISTENER_KEY = "LISTENER"
+        private const val ORDER_KEY = "ORDER"
+        private const val CONTINENT_KEY = "CONTINENT"
+        private const val SORT_BY_KEY = "SORT_BY"
 
-        @Volatile
-        private var instance: FilterDialog? = null
-        private val LOCK = Any()
+        operator fun invoke(filter: Filter, listener: OnFilterDialogListener): FilterDialog {
+            return newInstance(filter, listener)
+        }
 
-        operator fun invoke(
-            @LayoutRes resource: Int,
-            listener: OnFilterDialogListener
-        ): FilterDialog =
-            instance ?: synchronized(LOCK) {
-                instance ?: newInstance(resource, listener).also {
-                    instance = it
-                }
-            }
-
-        private fun newInstance(resource: Int, listener: OnFilterDialogListener): FilterDialog {
+        private fun newInstance(filter: Filter, listener: OnFilterDialogListener): FilterDialog {
             val args = Bundle().apply {
-                putInt(RESOURCE_KEY, resource)
                 putParcelable(LISTENER_KEY, listener)
+                putString(ORDER_KEY, filter.order)
+                putString(CONTINENT_KEY, filter.continent)
+                putString(SORT_BY_KEY, filter.sortBy)
             }
             FilterDialog().apply { arguments = args }.also { return it }
         }
@@ -54,28 +48,28 @@ class FilterDialog : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        fun getResource() = requireArguments().getInt(RESOURCE_KEY)
-
-        binding = DataBindingUtil.inflate(inflater, getResource(), container, false)
-        initialize()
-        return binding!!.root
+        _binding = DataBindingUtil.inflate(inflater, R.layout.filter_layout, container, false)
+        return binding.root
     }
 
-    private fun initialize() {
-        fun getListener() = requireArguments().getParcelable<OnFilterDialogListener>(LISTENER_KEY)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        binding!!.apply {
-            filter = getListener()
+        binding.apply {
             handlers = MyHandlers()
-
-            continent = allLabel
-            order = false
-            sortBy = caseTick
+            if (arguments != null) {
+                filter = arguments?.getParcelable(LISTENER_KEY)
+                updateFilter(
+                    arguments?.getString(CONTINENT_KEY),
+                    arguments?.getString(SORT_BY_KEY),
+                    arguments?.getString(ORDER_KEY)
+                )
+            }
         }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
+        dialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
         dialog.setOnShowListener {
             val d = it as BottomSheetDialog
             val sheet = d.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
@@ -85,9 +79,55 @@ class FilterDialog : BottomSheetDialogFragment() {
         return dialog
     }
 
+    fun updateContent(data: Filter) {
+        if (activity != null) {
+            updateFilter(data.continent, data.sortBy, data.order)
+            dialog.show()
+        }
+    }
+
+    private fun updateFilter(mContinent: String?, mSortBy: String?, mOrder: String?) {
+        fun initLabel(view: TextView): TextView {
+            view.apply {
+                setTextColor(
+                    if (!isDarkTheme(requireActivity())) getColor("EF9414")
+                    else getColor("7D53C6")
+                )
+                setBackgroundResource(R.drawable.view_stroke_on)
+            }
+            return view
+        }
+
+        fun initTick(view: ImageView): ImageView {
+            view.visibility = View.VISIBLE
+            return view
+        }
+
+        binding.apply {
+            continent = when (mContinent) {
+                "Asia" -> initLabel(asiaLabel)
+                "Africa" -> initLabel(africaLabel)
+                "Europe" -> initLabel(europeLabel)
+                "Oceania" -> initLabel(oceaniaLabel)
+                "North-America" -> initLabel(northAmericaLabel)
+                "South-America" -> initLabel(southAmericaLabel)
+                else -> initLabel(allLabel)
+            }
+
+            sortBy = when (mSortBy) {
+                "Country" -> initTick(countryTick)
+                "Deaths" -> initTick(deathTick)
+                "Recovered" -> initTick(recoveredTick)
+                else -> initTick(caseTick)
+            }
+
+            order = mOrder.toBoolean()
+            sort.isChecked = mOrder.toBoolean()
+        }
+    }
+
     override fun onDestroyView() {
-        binding = null
-        instance = null
+        _binding = null
         super.onDestroyView()
     }
 
@@ -96,8 +136,8 @@ class FilterDialog : BottomSheetDialogFragment() {
             dismiss()
         }
 
-        fun setOnContinent(view: View, continent: TextView) {
-            continent.apply {
+        fun setOnContinent(view: View, continent: TextView? = null) {
+            continent?.apply {
                 setTextColor(
                     if (!isDarkTheme(requireActivity())) getColor("232323")
                     else getColor("FDFDFD")
@@ -112,15 +152,15 @@ class FilterDialog : BottomSheetDialogFragment() {
                 setBackgroundResource(R.drawable.view_stroke_on)
             }
 
-            binding!!.continent = view
+            binding.continent = view
         }
 
         fun onOrderChanged(isChecked: Boolean) {
-            binding!!.order = isChecked
+            binding.order = isChecked
         }
 
-        fun setOnOrder(view: View, sortBy: ImageView) {
-            val id = when (sortBy.id) {
+        fun setOnOrder(view: View, sortBy: ImageView? = null) {
+            val id = when (sortBy?.id) {
                 R.id.country_tick -> R.id.country_label
                 R.id.case_tick -> R.id.case_label
                 R.id.death_tick -> R.id.death_label
@@ -128,26 +168,26 @@ class FilterDialog : BottomSheetDialogFragment() {
                 else -> -1
             }
             if (view.id != id) {
-                binding!!.apply {
+                binding.apply {
                     when (view.id) {
                         R.id.country_label -> {
                             countryTick.visibility = View.VISIBLE
-                            binding!!.sortBy = countryTick
+                            binding.sortBy = countryTick
                         }
                         R.id.case_label -> {
                             caseTick.visibility = View.VISIBLE
-                            binding!!.sortBy = caseTick
+                            binding.sortBy = caseTick
                         }
                         R.id.death_label -> {
                             deathTick.visibility = View.VISIBLE
-                            binding!!.sortBy = deathTick
+                            binding.sortBy = deathTick
                         }
                         R.id.recovered_label -> {
                             recoveredTick.visibility = View.VISIBLE
-                            binding!!.sortBy = recoveredTick
+                            binding.sortBy = recoveredTick
                         }
                     }
-                    sortBy.visibility = View.INVISIBLE
+                    sortBy?.visibility = View.INVISIBLE
                 }
             }
         }
