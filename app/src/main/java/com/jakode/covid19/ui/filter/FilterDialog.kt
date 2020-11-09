@@ -201,5 +201,18 @@ class FilterDialog : BottomSheetDialogFragment() {
                 else -> "NEVER HAPPEN"
             }
         }
+
+        fun getContinent(continent: TextView): String {
+            return when (continent.id) {
+                R.id.all_label -> "All"
+                R.id.asia_label -> "Asia"
+                R.id.north_america_label -> "North-America"
+                R.id.europe_label -> "Europe"
+                R.id.africa_label -> "Africa"
+                R.id.south_america_label -> "South-America"
+                R.id.oceania_label -> "Oceania"
+                else -> "NEVER HAPPEN"
+            }
+        }
     }
 }

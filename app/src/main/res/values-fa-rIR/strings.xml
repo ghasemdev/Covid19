@@ -28,4 +28,18 @@
     <string name="search">جست و جو</string>
     <string name="refresh">تازه سازی</string>
     <string name="more">بیشتر</string>
+
+    <string name="sets_filter">محدود سازی</string>
+    <string name="asc">صعودی</string>
+    <string name="des">نزولی</string>
+    <string name="continent">قاره</string>
+    <string name="all">همه</string>
+    <string name="oceania">اقیانوسیه</string>
+    <string name="north_america">آمریکای شمالی</string>
+    <string name="south_america">آمریکای جنوبی</string>
+    <string name="asia">آسیا</string>
+    <string name="europe">اوروپا</string>
+    <string name="africa">آفریقا</string>
+    <string name="sorted_by">مرتب سازی بر اساس</string>
+    <string name="apply_filter">اعمال محدودیت</string>
 </resources>
