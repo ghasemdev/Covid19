@@ -17,6 +17,9 @@
             app:exitAnim="@anim/slide_out_down"
             app:popEnterAnim="@anim/slide_in_down"
             app:popExitAnim="@anim/slide_out_up" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchActivity"
+            app:destination="@id/searchActivity" />
     </fragment>
     <fragment
         android:id="@+id/introFragment"
@@ -49,5 +52,14 @@
         android:id="@+id/statisticsFragment"
         android:name="com.jakode.covid19.ui.statistics.StatisticsFragment"
         android:label="fragment_statistics"
-        tools:layout="@layout/fragment_statistics" />
+        tools:layout="@layout/fragment_statistics" >
+        <action
+            android:id="@+id/action_statisticsFragment_to_searchActivity"
+            app:destination="@id/searchActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/searchActivity"
+        android:name="com.jakode.covid19.ui.SearchActivity"
+        android:label="activity_search"
+        tools:layout="@layout/activity_search" />
 </navigation>

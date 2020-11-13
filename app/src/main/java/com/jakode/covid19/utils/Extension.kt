@@ -1,12 +1,18 @@
 package com.jakode.covid19.utils
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.Color
-import java.lang.StringBuilder
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 fun formatNumber(value: Float): String {
@@ -82,4 +88,35 @@ fun getResources(context: Context, country: String): Int {
         "ic_${country.toLowerCase(Locale.ROOT).replace("-", "_")}", "drawable",
         context.packageName
     )
+}
+
+@SuppressLint("SimpleDateFormat")
+fun getDate(date: Date?): CharSequence {
+    val now = Calendar.getInstance()
+    date?.let {
+        val mDate = Calendar.getInstance()
+        mDate.time = Date(it.time)
+
+        return if (mDate.get(Calendar.DAY_OF_MONTH) - now.get(Calendar.DAY_OF_MONTH) == 0) {
+            val format = "HH:mm"
+            SimpleDateFormat(format).format(it)
+        } else {
+            val format = "MM:dd"
+            SimpleDateFormat(format).format(it)
+        }
+    }
+    return ""
+}
+
+fun highlight(text: String, query: String): SpannableString {
+    val start = text.toLowerCase(Locale.ROOT).indexOf(query.toLowerCase(Locale.ROOT))
+    return if (start < 0) SpannableString(text) else SpannableString(text).apply {
+        val fcs = ForegroundColorSpan(Color.parseColor("#E53935"))
+        setSpan(fcs, start, start + query.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+    }
+}
+
+fun hideKeyboard(context: Context, view: View) {
+    val imm = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(view.windowToken, 0)
 }

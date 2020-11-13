@@ -5,6 +5,7 @@
     <string name="next_step">بعدی</string>
     <string name="start_now">شروع کن</string>
 
+    <!--Intro Fragment-->
     <string name="wear_mask_title">ماسک بزن</string>
     <string name="wear_mask_desc">دهان و بینی را با ماسک بپوشانید و فاصله ای بین صورت و ماسک نداشته باشید.</string>
     <string name="wash_hand_title">دستات رو بشور</string>
@@ -26,9 +27,12 @@
     <string name="search_for_country">جست و جو</string>
     <string name="country">کشور ها</string>
     <string name="search">جست و جو</string>
+    <string name="bookmark">نشانه گذاری</string>
+    <string name="setting">تنظیمات</string>
     <string name="refresh">تازه سازی</string>
     <string name="more">بیشتر</string>
 
+    <!--Filter Fragment-->
     <string name="sets_filter">محدود سازی</string>
     <string name="asc">صعودی</string>
     <string name="des">نزولی</string>
@@ -42,4 +46,12 @@
     <string name="africa">آفریقا</string>
     <string name="sorted_by">مرتب سازی بر اساس</string>
     <string name="apply_filter">اعمال محدودیت</string>
+
+    <!--Search Fragment-->
+    <string name="search_hint">دنبال چی میگردی ؟</string>
+    <string name="empty_recent_search">جست و جوی اخیری وجود ندارد</string>
+    <string name="empty_search">نتیجه ای یافت نشد</string>
+    <string name="clear_history">پاک کردن تاریخچه جستجو</string>
+    <string name="recent_search">جست و جو های اخیر</string>
+    <string name="country_find">کشور پیدا شد</string>
 </resources>

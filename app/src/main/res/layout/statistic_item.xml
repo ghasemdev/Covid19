@@ -11,9 +11,9 @@
             name="model"
             type="com.jakode.covid19.model.Statistics" />
 
-        <!--<variable
+        <variable
             name="actionItemListener"
-            type="com.grvexample.ui.OnSingleChoiceClickListener" />-->
+            type="com.jakode.covid19.ui.adapter.ViewTypeAdapter.OnItemActionListener" />
 
         <variable
             name="position"
@@ -160,6 +160,5 @@
                     tools:text="+988" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -52,6 +52,10 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics), OnBackPressed
     private fun header() {
         binding.header.apply {
             cardFilter.setOnClickListener { bottomSheet() }
+
+            cardSearch.setOnClickListener {
+                findNavController().navigate(R.id.action_statisticsFragment_to_searchActivity)
+            }
         }
     }
 
@@ -85,7 +89,9 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics), OnBackPressed
 
             toolbarMore.setOnClickListener { }
 
-            toolbarSearch.setOnClickListener { }
+            toolbarSearch.setOnClickListener {
+                findNavController().navigate(R.id.action_statisticsFragment_to_searchActivity)
+            }
 
             toolbarMore.setOnLongClickListener {
                 popup(getString(R.string.more), R.id.toolbar_more)
@@ -105,7 +111,7 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics), OnBackPressed
 
     @ExperimentalCoroutinesApi
     private fun observe() {
-        viewModel.setStateEvent(MainStateEvent.GetBlogEvents)
+        viewModel.setStateEvent(MainStateEvent.GetStatisticEvents)
         viewModel.dataState.observe(viewLifecycleOwner, { dataState ->
             when (dataState) {
                 is DataState.Success<List<Statistics>> -> {

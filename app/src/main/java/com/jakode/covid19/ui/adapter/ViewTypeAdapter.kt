@@ -6,18 +6,19 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.jakode.covid19.BR
+import com.jakode.covid19.model.SearchHistory
 import com.jakode.covid19.model.Statistics
 import com.jakode.covid19.utils.getResources
 
 class ViewTypeAdapter<E : ViewType<*>>(
-    private var list: MutableList<E> = mutableListOf()/*,
-    private val onItemActionListener: OnItemActionListener? = null*/
+    private var list: MutableList<E> = mutableListOf(),
+    private val onItemActionListener: OnItemActionListener? = null
 ) : RecyclerView.Adapter<ViewTypeAdapter.ViewTypeHolder>(), BindableAdapter<List<E>> {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewTypeHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding: ViewDataBinding = DataBindingUtil.inflate(inflater, viewType, parent, false)
-        return ViewTypeHolder(binding/*, onItemActionListener*/)
+        return ViewTypeHolder(binding, onItemActionListener)
     }
 
     override fun onBindViewHolder(holder: ViewTypeHolder, position: Int) {
@@ -78,6 +79,11 @@ class ViewTypeAdapter<E : ViewType<*>>(
         }
     }
 
+    fun removeElements() {
+        list.clear()
+        notifyDataSetChanged()
+    }
+
     fun removeElements(startIndex: Int, endIndex: Int = this.list.size - 1) {
         val iterator = this.list.listIterator(startIndex)
         var end = endIndex
@@ -95,9 +101,10 @@ class ViewTypeAdapter<E : ViewType<*>>(
     }
 
     fun removeElement(index: Int) {
-        if (index < list.size) {
+        if (index in 0 until list.size) {
             list.removeAt(index)
             notifyItemRemoved(index)
+            notifyItemRangeChanged(index, list.size)
         }
     }
 
@@ -106,7 +113,10 @@ class ViewTypeAdapter<E : ViewType<*>>(
         notifyItemChanged(this.list.size - 1)
     }
 
-    class ViewTypeHolder(private val binding: ViewDataBinding/*, private val onItemActionListener: OnItemActionListener?*/) :
+    class ViewTypeHolder(
+        private val binding: ViewDataBinding,
+        private val onItemActionListener: OnItemActionListener?
+    ) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bindItem(item: ViewType<*>) {
@@ -114,8 +124,12 @@ class ViewTypeAdapter<E : ViewType<*>>(
             when (model) {
                 is Statistics -> {
                     model.apply { flag = getResources(binding.root.context, model.country) }
-                    /*binding.setVariable(BR.position, adapterPosition)
-                    binding.setVariable(BR.actionItemListener, onItemActionListener)*/
+                    binding.setVariable(BR.position, adapterPosition)
+                    binding.setVariable(BR.actionItemListener, onItemActionListener)
+                }
+                is SearchHistory -> {
+                    binding.setVariable(BR.position, adapterPosition)
+                    binding.setVariable(BR.actionItemListener, onItemActionListener)
                 }
             }
             binding.setVariable(BR.model, model)
@@ -123,11 +137,18 @@ class ViewTypeAdapter<E : ViewType<*>>(
         }
     }
 
-    /*interface OnItemActionListener {
+    interface OnItemActionListener {
         fun onItemClicked(position: Int)
     }
 
-    interface OnItemClickListener<T> : OnItemActionListener {
+    interface OnItemHistorySearchListener<T> : OnItemActionListener {
+        override fun onItemClicked(position: Int) {}
         fun onItemClicked(position: Int, item: T)
-    }*/
+        fun onItemRemove(position: Int, item: T)
+    }
+
+    interface OnItemSearchListener : OnItemActionListener {
+        override fun onItemClicked(position: Int) {}
+        fun getQuery(): String
+    }
 }

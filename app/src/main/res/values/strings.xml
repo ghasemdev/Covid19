@@ -26,6 +26,8 @@
     <string name="search_for_country">Search for country</string>
     <string name="country">Country</string>
     <string name="search">Search</string>
+    <string name="bookmark">Bookmark</string>
+    <string name="setting">Setting</string>
     <string name="refresh">Refresh</string>
     <string name="more">More</string>
 
@@ -42,4 +44,12 @@
     <string name="africa">Africa</string>
     <string name="sorted_by">SORTED BY</string>
     <string name="apply_filter">Apply Filter</string>
+
+    <string name="search_hint">what are you looking for ?</string>
+    <string name="empty_recent_search">No recent searches</string>
+    <string name="empty_search">No results found</string>
+    <string name="clear_history">Clear history</string>
+    <string name="recent_search">Recent search</string>
+    <string name="country_find">Country find</string>
+
 </resources>

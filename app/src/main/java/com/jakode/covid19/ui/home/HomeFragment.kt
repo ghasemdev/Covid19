@@ -19,11 +19,12 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.jakode.covid19.R
 import com.jakode.covid19.databinding.FragmentHomeBinding
 import com.jakode.covid19.model.Global
-import com.jakode.covid19.model.StatisticsAndGlobal
 import com.jakode.covid19.model.Statistics
+import com.jakode.covid19.model.StatisticsAndGlobal
 import com.jakode.covid19.ui.MainActivity
 import com.jakode.covid19.ui.adapter.ViewType
 import com.jakode.covid19.ui.adapter.ViewTypeAdapter
+import com.jakode.covid19.ui.dialogs.PopupMenu
 import com.jakode.covid19.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -63,7 +64,33 @@ class HomeFragment : Fragment(R.layout.fragment_home), OnBackPressedListener,
             viewAll.setOnClickListener {
                 findNavController().navigate(R.id.action_homeFragment_to_statisticsFragment)
             }
+
+            search.setOnClickListener {
+                findNavController().navigate(R.id.action_homeFragment_to_searchActivity)
+            }
+
+            search.setOnLongClickListener {
+                popup(getString(R.string.search), R.id.search, -50)
+            }
+
+            bookmark.setOnClickListener {}
+
+            bookmark.setOnLongClickListener {
+                popup(getString(R.string.bookmark), R.id.bookmark, -80)
+            }
+
+            setting.setOnClickListener {}
+
+            setting.setOnLongClickListener {
+                popup(getString(R.string.setting), R.id.setting, -60)
+            }
         }
+    }
+
+    private fun popup(text: String, resource: Int, x: Int): Boolean {
+        val anchor: View = requireView().findViewById(resource)
+        PopupMenu.show(text, anchor, x, 20)
+        return true
     }
 
     private fun globalExpand() {
@@ -87,7 +114,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), OnBackPressedListener,
         binding.apply {
             refreshLayout.setOnRefreshListener {
                 displayError(false)
-                viewModel.setStateEvent(MainStateEvent.GetBlogEvents, true)
+                viewModel.setStateEvent(MainStateEvent.GetStatisticEvents, true)
                 refreshLayout.isRefreshing = false
             }
         }
@@ -95,7 +122,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), OnBackPressedListener,
 
     @ExperimentalCoroutinesApi
     private fun observe() {
-        viewModel.setStateEvent(MainStateEvent.GetBlogEvents, false)
+        viewModel.setStateEvent(MainStateEvent.GetStatisticEvents, false)
         viewModel.dataState.observe(viewLifecycleOwner, { dataState ->
             when (dataState) {
                 is DataState.Success<StatisticsAndGlobal> -> {

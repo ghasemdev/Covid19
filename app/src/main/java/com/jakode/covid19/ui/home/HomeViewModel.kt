@@ -22,19 +22,19 @@ class HomeViewModel @ViewModelInject constructor(
     fun setStateEvent(mainStateEvent: MainStateEvent, isRefreshed: Boolean) {
         viewModelScope.launch {
             when (mainStateEvent) {
-                is MainStateEvent.GetBlogEvents -> {
+                is MainStateEvent.GetStatisticEvents -> {
                     appRepository.getStatisticsAndGlobal(isRefreshed).onEach { data ->
                         _dataState.value = data
                     }.launchIn(viewModelScope)
                 }
-                is MainStateEvent.None -> {
-                }
+                else -> {}
             }
         }
     }
 }
 
 sealed class MainStateEvent {
-    object GetBlogEvents : MainStateEvent()
+    object GetSearchHistoryEvents : MainStateEvent()
+    object GetStatisticEvents : MainStateEvent()
     object None : MainStateEvent()
 }

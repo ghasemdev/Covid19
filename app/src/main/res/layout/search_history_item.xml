@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.jakode.covid19.utils.ExtensionKt" />
+
+        <variable
+            name="model"
+            type="com.jakode.covid19.model.SearchHistory" />
+
+        <variable
+            name="actionItemListener"
+            type="com.jakode.covid19.ui.adapter.ViewTypeAdapter.OnItemHistorySearchListener" />
+
+        <variable
+            name="position"
+            type="Integer" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="@{() -> actionItemListener.onItemClicked(position,model)}">
+
+        <ImageView
+            android:id="@+id/remove_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:onClick="@{() -> actionItemListener.onItemRemove(position,model)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_clear"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@{ExtensionKt.getDate(model.date)}"
+            app:layout_constraintBottom_toBottomOf="@+id/remove_icon"
+            app:layout_constraintStart_toEndOf="@+id/remove_icon"
+            app:layout_constraintTop_toTopOf="@+id/remove_icon"
+            tools:text="13:13" />
+
+        <TextView
+            android:id="@+id/country"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:text="@{model.query}"
+            app:layout_constraintBottom_toBottomOf="@+id/date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/date"
+            tools:text="Iran" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

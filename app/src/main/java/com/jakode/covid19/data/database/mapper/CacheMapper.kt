@@ -1,8 +1,10 @@
 package com.jakode.covid19.data.database.mapper
 
 import com.jakode.covid19.data.database.model.GlobalCacheEntity
+import com.jakode.covid19.data.database.model.SearchHistoryEntity
 import com.jakode.covid19.data.database.model.StatisticsCacheEntity
 import com.jakode.covid19.model.Global
+import com.jakode.covid19.model.SearchHistory
 import com.jakode.covid19.model.Statistics
 import com.jakode.covid19.utils.EntityMapper
 import javax.inject.Inject
@@ -89,5 +91,25 @@ class CacheMapper @Inject constructor() : EntityMapper<StatisticsCacheEntity, St
             active = entities.cases.active!!,
             lastUpdate = entities.time,
         )
+    }
+
+    fun mapFromSearch(historyEntity: SearchHistoryEntity): SearchHistory {
+        return SearchHistory(
+            id = historyEntity.id,
+            query = historyEntity.query,
+            date = historyEntity.date
+        )
+    }
+
+    fun mapToSearch(domainModel: SearchHistory): SearchHistoryEntity {
+        return SearchHistoryEntity(
+            id = domainModel.id,
+            query = domainModel.query,
+            date = domainModel.date
+        )
+    }
+
+    fun mapFromSearchList(historyEntities: List<SearchHistoryEntity>): List<SearchHistory> {
+        return historyEntities.map { mapFromSearch(it) }
     }
 }

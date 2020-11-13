@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.jakode.covid19.data.database.AppDatabase
 import com.jakode.covid19.data.database.dao.GlobalDao
+import com.jakode.covid19.data.database.dao.SearchDao
 import com.jakode.covid19.data.database.dao.StatisticsDao
 import dagger.Module
 import dagger.Provides
@@ -33,4 +34,8 @@ object RoomModule {
     @Singleton
     @Provides
     fun provideGlobal(appDataBase: AppDatabase): GlobalDao = appDataBase.globalDao()
+
+    @Singleton
+    @Provides
+    fun provideSearch(appDataBase: AppDatabase): SearchDao = appDataBase.searchDao()
 }

@@ -12,7 +12,6 @@ import java.io.IOException
 const val PREFERENCE_NAME = "covid_preference"
 
 class DataStoreRepository(context: Context) {
-
     private object PreferenceKey {
         val state = preferencesKey<Boolean>("mode")
         val time = preferencesKey<Long>("time")
@@ -34,8 +33,7 @@ class DataStoreRepository(context: Context) {
             }
         }
         .map { preference ->
-            val state = preference[PreferenceKey.state] ?: false
-            state
+            preference[PreferenceKey.state] ?: false
         }
 
     suspend fun saveState(state: Boolean) {
@@ -54,8 +52,7 @@ class DataStoreRepository(context: Context) {
             }
         }
         .map { preference ->
-            val time = preference[PreferenceKey.time] ?: 0L
-            time
+            preference[PreferenceKey.time] ?: 0L
         }
 
     suspend fun updateTime(time: Long) {
@@ -74,8 +71,7 @@ class DataStoreRepository(context: Context) {
             }
         }
         .map { preference ->
-            val cacheDuration = preference[PreferenceKey.cacheDuration]
-            cacheDuration
+            preference[PreferenceKey.cacheDuration]
         }
 
     suspend fun saveDuration(duration: Long) {
@@ -94,8 +90,7 @@ class DataStoreRepository(context: Context) {
             }
         }
         .map { preference ->
-            val sortBy = preference[PreferenceKey.filter] ?: "false;All;Total Case"
-            sortBy
+            preference[PreferenceKey.filter] ?: "false;All;Total Case"
         }
 
     suspend fun saveFilter(filter: String) {

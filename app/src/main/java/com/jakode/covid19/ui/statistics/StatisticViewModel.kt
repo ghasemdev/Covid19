@@ -28,13 +28,12 @@ class StatisticViewModel @ViewModelInject constructor(
     fun setStateEvent(mainStateEvent: MainStateEvent) {
         viewModelScope.launch(Dispatchers.IO) {
             when (mainStateEvent) {
-                is MainStateEvent.GetBlogEvents -> {
+                is MainStateEvent.GetStatisticEvents -> {
                     appRepository.getStatistics().onEach { data ->
                         _dataState.value = data
                     }.launchIn(viewModelScope)
                 }
-                is MainStateEvent.None -> {
-                }
+                else -> {}
             }
         }
     }

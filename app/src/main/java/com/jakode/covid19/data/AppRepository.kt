@@ -3,9 +3,11 @@ package com.jakode.covid19.data
 import com.jakode.covid19.data.api.CovidApi
 import com.jakode.covid19.data.api.mapper.NetworkMapper
 import com.jakode.covid19.data.database.dao.GlobalDao
+import com.jakode.covid19.data.database.dao.SearchDao
 import com.jakode.covid19.data.database.dao.StatisticsDao
 import com.jakode.covid19.data.database.mapper.CacheMapper
 import com.jakode.covid19.data.datastore.DataStoreRepository
+import com.jakode.covid19.model.SearchHistory
 import com.jakode.covid19.model.Statistics
 import com.jakode.covid19.model.StatisticsAndGlobal
 import com.jakode.covid19.utils.DataState
@@ -19,6 +21,7 @@ import kotlinx.coroutines.flow.flow
 class AppRepository(
     private val statisticsDao: StatisticsDao,
     private val globalDao: GlobalDao,
+    private val searchDao: SearchDao,
     private val api: CovidApi,
     private val dataStore: DataStoreRepository,
     private val cacheMapper: CacheMapper,
@@ -113,5 +116,31 @@ class AppRepository(
                 emit(DataState.Error(e))
             }
         }
+    }
+
+    suspend fun removeAllSearch() = searchDao.deleteAll()
+    suspend fun removeSearch(searchHistory: SearchHistory) =
+        searchDao.delete(cacheMapper.mapToSearch(searchHistory))
+
+    suspend fun insertSearch(searchHistory: SearchHistory) {
+        searchDao.getByQuery(searchHistory.query)?.let {
+            removeSearch(cacheMapper.mapFromSearch(it))
+        }
+        searchDao.insert(cacheMapper.mapToSearch(searchHistory))
+    }
+
+    suspend fun getHistorySearch(): Flow<DataState<List<SearchHistory>>> = flow {
+        val cacheSearch = searchDao.getAll()
+        val searches = cacheMapper.mapFromSearchList(cacheSearch).sortedByDescending { it.date }
+
+        emit(DataState.Success(searches))
+    }
+
+    suspend fun countrySearch(query: String): Flow<DataState<List<Statistics>>> = flow {
+        val country = "%${query}%"
+        val cacheStatistics = statisticsDao.getStatisticByCountry(country)
+        val statistics = cacheMapper.mapFromEntityList(cacheStatistics)
+
+        emit(DataState.Success(statisticsFilter(statistics, sameContinent)))
     }
 }

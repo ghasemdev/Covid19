@@ -13,4 +13,7 @@ interface StatisticsDao {
 
     @Query("SELECT * FROM statistics WHERE continent != country")
     suspend fun getAll(): List<StatisticsCacheEntity>
+
+    @Query("SELECT * FROM statistics WHERE country LIKE :country")
+    suspend fun getStatisticByCountry(country: String): List<StatisticsCacheEntity>
 }
