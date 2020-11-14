@@ -87,15 +87,15 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics), OnBackPressed
                 findNavController().navigateUp()
             }
 
-            toolbarMore.setOnClickListener { }
+//            toolbarMore.setOnClickListener { }
 
             toolbarSearch.setOnClickListener {
                 findNavController().navigate(R.id.action_statisticsFragment_to_searchActivity)
             }
 
-            toolbarMore.setOnLongClickListener {
-                popup(getString(R.string.more), R.id.toolbar_more)
-            }
+//            toolbarMore.setOnLongClickListener {
+//                popup(getString(R.string.more), R.id.toolbar_more)
+//            }
 
             toolbarSearch.setOnLongClickListener {
                 popup(getString(R.string.search), R.id.toolbar_search)

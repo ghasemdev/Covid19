@@ -79,7 +79,9 @@ class HomeFragment : Fragment(R.layout.fragment_home), OnBackPressedListener,
                 popup(getString(R.string.bookmark), R.id.bookmark, -80)
             }
 
-            setting.setOnClickListener {}
+            setting.setOnClickListener {
+                findNavController().navigate(R.id.action_homeFragment_to_settingsFragment)
+            }
 
             setting.setOnLongClickListener {
                 popup(getString(R.string.setting), R.id.setting, -60)
