@@ -163,13 +163,25 @@ class SearchFragment : Fragment(R.layout.fargment_search) {
 
         viewModel.statistics.observe(viewLifecycleOwner, { dataState ->
             if (dataState is DataState.Success<List<Statistics>> && ::query.isInitialized) {
+                displayProgressBar(false)
                 if (query.isNotEmpty()) {
                     if (dataState.data.isNotEmpty()) findSomething(dataState.data) else nothingFind()
                 } else {
                     nothingInput()
                 }
+            } else if (dataState is DataState.Loading) {
+                displayProgressBar(true)
             }
         })
+    }
+
+    private fun displayProgressBar(isDisplayed: Boolean) {
+        binding.apply {
+            loading.visibility = if (isDisplayed) View.VISIBLE else View.GONE
+            descriptionText.visibility = if (isDisplayed) View.GONE else View.VISIBLE
+            titleText.visibility = if (isDisplayed) View.GONE else View.VISIBLE
+            cardView.visibility = if (isDisplayed) View.GONE else View.VISIBLE
+        }
     }
 
     private fun setSearch(searchHistories: List<SearchHistory>) {

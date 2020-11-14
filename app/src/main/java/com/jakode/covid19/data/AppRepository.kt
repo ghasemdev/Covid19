@@ -14,6 +14,7 @@ import com.jakode.covid19.utils.DataState
 import com.jakode.covid19.utils.Predicate
 import com.jakode.covid19.utils.statisticsDesSort
 import com.jakode.covid19.utils.statisticsFilter
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
@@ -137,10 +138,11 @@ class AppRepository(
     }
 
     suspend fun countrySearch(query: String): Flow<DataState<List<Statistics>>> = flow {
+        emit(DataState.Loading)
         val country = "%${query}%"
         val cacheStatistics = statisticsDao.getStatisticByCountry(country)
         val statistics = cacheMapper.mapFromEntityList(cacheStatistics)
-
+        delay(250)
         emit(DataState.Success(statisticsFilter(statistics, sameContinent)))
     }
 }
