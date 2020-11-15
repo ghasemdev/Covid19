@@ -23,12 +23,13 @@
     <string name="fatality_rate">نرخ فوت</string>
     <string name="last_update">اخرین آپدیت</string>
     <string name="total_case">کل مبتلایان</string>
-    <string name="statistics">آمار</string>
     <string name="search_for_country">جست و جو</string>
-    <string name="country">کشور ها</string>
+    <string name="statistics_header">کشور ها</string>
+    <string name="country_header">آمار</string>
+    <string name="country">کشور</string>
     <string name="search">جست و جو</string>
     <string name="bookmark">نشانه گذاری</string>
-    <string name="setting">تنظیمات</string>
+    <string name="settings">تنظیمات</string>
     <string name="refresh">تازه سازی</string>
     <string name="more">بیشتر</string>
 

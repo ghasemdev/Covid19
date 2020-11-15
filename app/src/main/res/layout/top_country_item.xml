@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="com.jakode.covid19.utils.CountryRename" />
+
         <import type="com.jakode.covid19.utils.ExtensionKt" />
 
         <variable
@@ -64,6 +66,7 @@
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:clickable="true"
                         android:focusable="true"
+                        android:visibility="invisible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/ic_more"
@@ -75,7 +78,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="@{model.country}"
+                        android:text="@{CountryRename.INSTANCE.englishToPersian(model.country)}"
                         android:textColor="@color/color_secondary_text"
                         android:textSize="16sp"
                         android:textStyle="bold"

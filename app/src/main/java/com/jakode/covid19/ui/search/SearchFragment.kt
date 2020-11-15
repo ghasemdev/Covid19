@@ -31,7 +31,6 @@ class SearchFragment : Fragment(R.layout.fargment_search) {
 
     private var statisticsAdapter: ViewTypeAdapter<ViewType<*>>? = null
     private var searchHistoryAdapter: ViewTypeAdapter<ViewType<*>>? = null
-    private lateinit var statisticsList: List<ViewType<*>>
     private lateinit var searchList: ArrayList<ViewType<*>>
 
     private lateinit var query: String

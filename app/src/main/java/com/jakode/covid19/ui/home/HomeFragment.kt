@@ -84,7 +84,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), OnBackPressedListener,
             }
 
             setting.setOnLongClickListener {
-                popup(getString(R.string.setting), R.id.setting, -60)
+                popup(getString(R.string.settings), R.id.setting, -60)
             }
         }
     }

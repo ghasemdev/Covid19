@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="com.jakode.covid19.utils.CountryRename" />
+
         <import type="com.jakode.covid19.utils.ExtensionKt" />
 
         <variable
@@ -54,7 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:text="@{ExtensionKt.highlight(model.country,actionItemListener.getQuery())}"
+                android:text="@{ExtensionKt.highlight(CountryRename.INSTANCE.englishToPersian(model.country),actionItemListener.getQuery())}"
                 android:textColor="@color/color_secondary_text"
                 android:textSize="18sp"
                 android:textStyle="bold"
