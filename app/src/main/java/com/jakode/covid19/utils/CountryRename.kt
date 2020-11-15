@@ -1,5 +1,7 @@
 package com.jakode.covid19.utils
 
+import java.util.*
+
 object CountryRename {
     private val englishToPersianMap = mapOf(
         "Afghanistan" to "افغانستان", "Albania" to "آلبانی", "Algeria" to "الجزیره",
@@ -87,5 +89,16 @@ object CountryRename {
 
     fun englishToPersian(word: String): String? {
         return if (isPersian()) englishToPersianMap[word] else word
+    }
+
+    fun search(query: String): List<String> {
+        val statistics = ArrayList<String>()
+
+        for (value in englishToPersianMap.values) {
+            if (value.contains(query)) {
+                statistics.add(englishToPersianMap.getKey(value) ?: error(""))
+            }
+        }
+        return statistics
     }
 }

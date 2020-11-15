@@ -10,10 +10,7 @@ import com.jakode.covid19.data.datastore.DataStoreRepository
 import com.jakode.covid19.model.SearchHistory
 import com.jakode.covid19.model.Statistics
 import com.jakode.covid19.model.StatisticsAndGlobal
-import com.jakode.covid19.utils.DataState
-import com.jakode.covid19.utils.Predicate
-import com.jakode.covid19.utils.statisticsDesSort
-import com.jakode.covid19.utils.statisticsFilter
+import com.jakode.covid19.utils.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -139,10 +136,28 @@ class AppRepository(
 
     suspend fun countrySearch(query: String): Flow<DataState<List<Statistics>>> = flow {
         emit(DataState.Loading)
-        val country = "%${query}%"
-        val cacheStatistics = statisticsDao.getStatisticByCountry(country)
-        val statistics = cacheMapper.mapFromEntityList(cacheStatistics)
-        delay(250)
-        emit(DataState.Success(statisticsFilter(statistics, sameContinent)))
+        if (isPersian()) {
+            val searchStatistics = CountryRename.search(query)
+
+            val cacheStatistics = statisticsDao.getAll()
+            val allStatistics = cacheMapper.mapFromEntityList(cacheStatistics)
+
+            val statistics = ArrayList<Statistics>()
+            for (country in searchStatistics) {
+                for (statistic in allStatistics) {
+                    if (country == statistic.country) {
+                        statistics.add(statistic)
+                        break
+                    }
+                }
+            }
+            emit(DataState.Success(statistics))
+        } else {
+            val country = "%${query}%"
+            val cacheStatistics = statisticsDao.getStatisticByCountry(country)
+            val statistics = cacheMapper.mapFromEntityList(cacheStatistics)
+            delay(250)
+            emit(DataState.Success(statisticsFilter(statistics, sameContinent)))
+        }
     }
 }
