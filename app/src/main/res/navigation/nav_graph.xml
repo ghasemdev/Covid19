@@ -77,6 +77,9 @@
         <action
             android:id="@+id/action_settingsFragment_to_languageDialog"
             app:destination="@id/languageDialog" />
+        <action
+            android:id="@+id/action_settingsFragment_to_themeDialog"
+            app:destination="@id/themeDialog" />
     </fragment>
     <dialog
         android:id="@+id/languageDialog"
@@ -89,5 +92,17 @@
         <argument
             android:name="onLanguageDialogListener"
             app:argType="com.jakode.covid19.ui.settings.OnLanguageDialogListener" />
+    </dialog>
+    <dialog
+        android:id="@+id/themeDialog"
+        android:name="com.jakode.covid19.ui.settings.ThemeDialog"
+        android:label="ThemeDialog"
+        tools:layout="@layout/dialog_theme">
+        <action
+            android:id="@+id/action_themeDialog_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <argument
+            android:name="onThemeDialogListener"
+            app:argType="com.jakode.covid19.ui.settings.OnThemeDialogListener" />
     </dialog>
 </navigation>

@@ -12,6 +12,7 @@ import com.jakode.covid19.databinding.FragmentSettingsBinding
 import com.jakode.covid19.ui.activities.MainActivity
 import com.jakode.covid19.utils.Language
 import com.jakode.covid19.utils.OnBackPressedListener
+import com.jakode.covid19.utils.changeTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -25,11 +26,22 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), OnBackPressedList
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentSettingsBinding.bind(view)
-        binding.languageValue.text = Language.getName(sharedPreferences.language)
+        initialize()
         clickListener()
 
         // impalement onBackPressed
         (activity as MainActivity).setOnBackPressedListener(this)
+    }
+
+    private fun initialize() {
+        binding.apply {
+            languageValue.text = Language.getName(sharedPreferences.language)
+            themeValue.text = when (sharedPreferences.theme) {
+                false -> getString(R.string.light)
+                true -> getString(R.string.dark)
+                null -> getString(R.string.system_default)
+            }
+        }
     }
 
     private fun clickListener() {
@@ -56,6 +68,26 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), OnBackPressedList
                                 viewModel.saveLanguage(language)
                                 (activity as MainActivity).recreate()
                             }
+                        }
+
+                        override fun describeContents() = 0
+                        override fun writeToParcel(dest: Parcel?, flags: Int) {}
+                    })
+                findNavController().navigate(action)
+            }
+
+            theme.setOnClickListener {
+                val action =
+                    SettingsFragmentDirections.actionSettingsFragmentToThemeDialog(object :
+                        OnThemeDialogListener {
+
+                        override fun onChanged(
+                            theme: Boolean?,
+                            handlers: ThemeDialog.MyHandlers
+                        ) {
+                            handlers.onClose()
+                            viewModel.saveTheme(theme)
+                            changeTheme(theme)
                         }
 
                         override fun describeContents() = 0

@@ -11,6 +11,7 @@ import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatDelegate
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -35,6 +36,14 @@ fun formatShortcut(value: Int): String {
 
 fun isDarkTheme(activity: Activity): Boolean {
     return activity.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
+}
+
+fun changeTheme(theme: Boolean?) {
+    when (theme) {
+        false -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        true -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        null -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+    }
 }
 
 fun getColor(colorHex: String): Int {

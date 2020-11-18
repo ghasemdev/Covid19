@@ -20,4 +20,10 @@ class SettingsViewModel @ViewModelInject constructor(
             sharedPreferences.language = language
         }
     }
+
+    fun saveTheme(theme: Boolean?) {
+        viewModelScope.launch(IO) {
+            sharedPreferences.theme = theme
+        }
+    }
 }

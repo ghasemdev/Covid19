@@ -69,4 +69,8 @@
     <string name="english">English</string>
     <string name="persian">فارسی</string>
 
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+    <string name="system_default">System Default</string>
+
 </resources>

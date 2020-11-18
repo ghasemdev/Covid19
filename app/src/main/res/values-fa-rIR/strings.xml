@@ -64,11 +64,16 @@
     <string name="other">سایر</string>
     <string name="clear_search_history">پاک کردن تاریخچه جستجو</string>
     <string name="update_scheduling">زمانبندی اپدیت اطلاعات</string>
-    <string name="theme">تم</string>
+    <string name="theme">حالت تاریک</string>
     <string name="language">زبان (Language)</string>
     <string name="general">عمومی</string>
     <string name="location">موقیعت مکانی</string>
 
     <string name="english">English</string>
     <string name="persian">فارسی</string>
+
+    <string name="light">روشن</string>
+    <string name="dark">تاریک</string>
+    <string name="system_default">پیش فرض سیستم</string>
+
 </resources>
