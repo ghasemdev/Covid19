@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.jakode.covid19.R
 import com.jakode.covid19.databinding.FragmentStatisticsBinding
 import com.jakode.covid19.model.Statistics
-import com.jakode.covid19.ui.MainActivity
+import com.jakode.covid19.ui.activities.MainActivity
 import com.jakode.covid19.ui.adapter.ViewType
 import com.jakode.covid19.ui.adapter.ViewTypeAdapter
 import com.jakode.covid19.ui.dialogs.PopupMenu

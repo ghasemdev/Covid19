@@ -55,4 +55,20 @@
     <string name="clear_history">پاک کردن تاریخچه جستجو</string>
     <string name="recent_search">جست و جو های اخیر</string>
     <string name="country_find">کشور پیدا شد</string>
+
+    <string name="version">نسخه ۱.۰.۰</string>
+    <string name="release_note">تغییرات اخیر</string>
+    <string name="contact_us">تماس با ما</string>
+    <string name="donate_to_developer">حمایت مالی</string>
+    <string name="suggest_to_friends">معرفی به دوستان</string>
+    <string name="other">سایر</string>
+    <string name="clear_search_history">پاک کردن تاریخچه جستجو</string>
+    <string name="update_scheduling">زمانبندی اپدیت اطلاعات</string>
+    <string name="theme">تم</string>
+    <string name="language">زبان (Language)</string>
+    <string name="general">عمومی</string>
+    <string name="location">موقیعت مکانی</string>
+
+    <string name="english">English</string>
+    <string name="persian">فارسی</string>
 </resources>

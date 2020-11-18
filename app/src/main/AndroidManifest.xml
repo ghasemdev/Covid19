@@ -20,7 +20,7 @@
         android:theme="@style/Theme.Covid19">
 
         <activity
-            android:name=".ui.SearchActivity"
+            android:name=".ui.activities.SearchActivity"
             android:launchMode="singleTop"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
@@ -32,7 +32,7 @@
                 android:resource="@xml/searchable" />
         </activity>
 
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".ui.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

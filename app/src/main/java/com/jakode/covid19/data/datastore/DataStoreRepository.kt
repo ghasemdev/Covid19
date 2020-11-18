@@ -15,8 +15,10 @@ class DataStoreRepository(context: Context) {
     private object PreferenceKey {
         val state = preferencesKey<Boolean>("mode")
         val time = preferencesKey<Long>("time")
-        val cacheDuration = preferencesKey<String>("duration")
         val filter = preferencesKey<String>("filter")
+
+        // Settings
+        val cacheDuration = preferencesKey<String>("duration")
     }
 
     private val dataStore: DataStore<Preferences> = context.createDataStore(
@@ -61,25 +63,6 @@ class DataStoreRepository(context: Context) {
         }
     }
 
-    val readDuration: Flow<String?> = dataStore.data
-        .catch { exception ->
-            if (exception is IOException) {
-                Log.d("DATA_STORE", exception.message.toString())
-                emit(emptyPreferences())
-            } else {
-                throw exception
-            }
-        }
-        .map { preference ->
-            preference[PreferenceKey.cacheDuration]
-        }
-
-    suspend fun saveDuration(duration: Long) {
-        dataStore.edit { preference ->
-            preference[PreferenceKey.cacheDuration] = duration.toString()
-        }
-    }
-
     val readFilter: Flow<String> = dataStore.data
         .catch { exception ->
             if (exception is IOException) {
@@ -96,6 +79,25 @@ class DataStoreRepository(context: Context) {
     suspend fun saveFilter(filter: String) {
         dataStore.edit { preference ->
             preference[PreferenceKey.filter] = filter
+        }
+    }
+
+    val readDuration: Flow<String?> = dataStore.data
+        .catch { exception ->
+            if (exception is IOException) {
+                Log.d("DATA_STORE", exception.message.toString())
+                emit(emptyPreferences())
+            } else {
+                throw exception
+            }
+        }
+        .map { preference ->
+            preference[PreferenceKey.cacheDuration]
+        }
+
+    suspend fun saveDuration(duration: Long) {
+        dataStore.edit { preference ->
+            preference[PreferenceKey.cacheDuration] = duration.toString()
         }
     }
 }

@@ -1,13 +1,12 @@
-package com.jakode.covid19.ui
+package com.jakode.covid19.ui.activities
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.jakode.covid19.R
 import com.jakode.covid19.utils.OnBackPressedListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     private lateinit var onBackPressedListener: OnBackPressedListener
 
     override fun onCreate(savedInstanceState: Bundle?) {

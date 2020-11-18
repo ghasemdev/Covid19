@@ -53,4 +53,20 @@
     <string name="recent_search">Recent search</string>
     <string name="country_find">Country find</string>
 
+    <string name="version">version 1.0.0</string>
+    <string name="release_note">Release Note</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="donate_to_developer">Donate to developer</string>
+    <string name="suggest_to_friends">Suggest to friends</string>
+    <string name="other">Other</string>
+    <string name="clear_search_history">Clear search history</string>
+    <string name="update_scheduling">Update Scheduling</string>
+    <string name="theme">Theme</string>
+    <string name="language">Language (زبان)</string>
+    <string name="general">General</string>
+    <string name="location">Location</string>
+
+    <string name="english">English</string>
+    <string name="persian">فارسی</string>
+
 </resources>

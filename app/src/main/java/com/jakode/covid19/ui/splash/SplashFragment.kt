@@ -7,7 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.jakode.covid19.R
-import com.jakode.covid19.ui.MainActivity
+import com.jakode.covid19.ui.activities.MainActivity
 import com.jakode.covid19.utils.OnBackPressedListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay

@@ -10,7 +10,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.jakode.covid19.R
 import com.jakode.covid19.databinding.FragmentIntroBinding
 import com.jakode.covid19.model.Slider
-import com.jakode.covid19.ui.MainActivity
+import com.jakode.covid19.ui.activities.MainActivity
 import com.jakode.covid19.ui.adapter.ViewType
 import com.jakode.covid19.ui.adapter.ViewTypeAdapter
 import com.jakode.covid19.utils.OnBackPressedListener

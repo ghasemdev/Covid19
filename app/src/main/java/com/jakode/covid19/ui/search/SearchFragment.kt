@@ -12,7 +12,7 @@ import com.jakode.covid19.R
 import com.jakode.covid19.databinding.FargmentSearchBinding
 import com.jakode.covid19.model.SearchHistory
 import com.jakode.covid19.model.Statistics
-import com.jakode.covid19.ui.SearchActivity
+import com.jakode.covid19.ui.activities.SearchActivity
 import com.jakode.covid19.ui.adapter.ViewType
 import com.jakode.covid19.ui.adapter.ViewTypeAdapter
 import com.jakode.covid19.ui.home.MainStateEvent

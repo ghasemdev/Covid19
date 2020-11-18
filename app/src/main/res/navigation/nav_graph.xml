@@ -20,6 +20,13 @@
         <action
             android:id="@+id/action_homeFragment_to_searchActivity"
             app:destination="@id/searchActivity" />
+        <action
+            android:id="@+id/action_homeFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment"
+            app:enterAnim="@anim/slide_in_down"
+            app:exitAnim="@anim/slide_out_up"
+            app:popEnterAnim="@anim/slide_in_up"
+            app:popExitAnim="@anim/slide_out_down" />
     </fragment>
     <fragment
         android:id="@+id/introFragment"
@@ -52,14 +59,35 @@
         android:id="@+id/statisticsFragment"
         android:name="com.jakode.covid19.ui.statistics.StatisticsFragment"
         android:label="fragment_statistics"
-        tools:layout="@layout/fragment_statistics" >
+        tools:layout="@layout/fragment_statistics">
         <action
             android:id="@+id/action_statisticsFragment_to_searchActivity"
             app:destination="@id/searchActivity" />
     </fragment>
     <activity
         android:id="@+id/searchActivity"
-        android:name="com.jakode.covid19.ui.SearchActivity"
+        android:name="com.jakode.covid19.ui.activities.SearchActivity"
         android:label="activity_search"
         tools:layout="@layout/activity_search" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.jakode.covid19.ui.settings.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/action_settingsFragment_to_languageDialog"
+            app:destination="@id/languageDialog" />
+    </fragment>
+    <dialog
+        android:id="@+id/languageDialog"
+        android:name="com.jakode.covid19.ui.settings.LanguageDialog"
+        android:label="LanguageDialog"
+        tools:layout="@layout/dialog_language">
+        <action
+            android:id="@+id/action_languageDialog_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <argument
+            android:name="onLanguageDialogListener"
+            app:argType="com.jakode.covid19.ui.settings.OnLanguageDialogListener" />
+    </dialog>
 </navigation>

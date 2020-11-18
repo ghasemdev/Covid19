@@ -12,12 +12,12 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.jakode.covid19.R
-import com.jakode.covid19.databinding.FilterLayoutBinding
+import com.jakode.covid19.databinding.DialogFilterBinding
 import com.jakode.covid19.utils.getColor
 import com.jakode.covid19.utils.isDarkTheme
 
 class FilterDialog : BottomSheetDialogFragment() {
-    private var _binding: FilterLayoutBinding? = null
+    private var _binding: DialogFilterBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var dialog: BottomSheetDialog
@@ -48,7 +48,7 @@ class FilterDialog : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = DataBindingUtil.inflate(inflater, R.layout.filter_layout, container, false)
+        _binding = DataBindingUtil.inflate(inflater, R.layout.dialog_filter, container, false)
         return binding.root
     }
 
