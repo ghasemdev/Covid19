@@ -100,7 +100,7 @@ dependencies {
     kapt "androidx.hilt:hilt-compiler:$hilt_viewModel_version"
 
     // leak Memory
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.5'
+//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.5'
 }
 
 kapt {
