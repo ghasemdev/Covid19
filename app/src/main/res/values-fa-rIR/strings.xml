@@ -76,4 +76,18 @@
     <string name="dark">تاریک</string>
     <string name="system_default">پیش فرض سیستم</string>
 
+    <string name="symbol">:</string>
+    <string name="confirm_time">زمان را تایید کنید</string>
+    <string name="minute">دقیقه</string>
+    <string name="hour">ساعت</string>
+    <string name="every_minute">هر یک دقیقه</string>
+    <string name="every_hour">هر یک ساعت</string>
+    <string name="every">هر</string>
+    <string name="every_hour_one_minute">هر یک ساعت و یک دقیقه</string>
+    <string name="every_hour_and">هر یک ساعت و</string>
+    <string name="hour_and_one_minute">ساعت و یک دقیقه</string>
+    <string name="and">و</string>
+
+    <string name="hello">سلام Jakode</string>
+
 </resources>

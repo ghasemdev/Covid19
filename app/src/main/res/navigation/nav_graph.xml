@@ -80,6 +80,9 @@
         <action
             android:id="@+id/action_settingsFragment_to_themeDialog"
             app:destination="@id/themeDialog" />
+        <action
+            android:id="@+id/action_settingsFragment_to_timeDialog"
+            app:destination="@id/timeDialog" />
     </fragment>
     <dialog
         android:id="@+id/languageDialog"
@@ -104,5 +107,23 @@
         <argument
             android:name="onThemeDialogListener"
             app:argType="com.jakode.covid19.ui.settings.OnThemeDialogListener" />
+    </dialog>
+    <dialog
+        android:id="@+id/timeDialog"
+        android:name="com.jakode.covid19.ui.settings.TimeDialog"
+        android:label="TimeDialog"
+        tools:layout="@layout/dialog_time">
+        <action
+            android:id="@+id/action_timeDialog_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <argument
+            android:name="onTimeDialogListener"
+            app:argType="com.jakode.covid19.ui.settings.OnTimeDialogListener" />
+        <argument
+            android:name="hour"
+            app:argType="integer" />
+        <argument
+            android:name="minute"
+            app:argType="integer" />
     </dialog>
 </navigation>

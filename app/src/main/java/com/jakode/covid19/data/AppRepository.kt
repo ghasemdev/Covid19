@@ -35,8 +35,7 @@ class AppRepository(
         // Setting for duration of updating
         val cachePreference = dataStore.readDuration.first()
         try {
-            val cachePreferenceInt = cachePreference?.toInt() ?: 5 * 60
-            refreshTime = cachePreferenceInt.times(1000 * 1000 * 1000L)
+            refreshTime = cachePreference.times(1000 * 1000 * 1000L)
         } catch (exception: NumberFormatException) {
             exception.stackTrace
         }

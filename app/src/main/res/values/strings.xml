@@ -73,4 +73,18 @@
     <string name="dark">Dark</string>
     <string name="system_default">System Default</string>
 
+    <string name="symbol">:</string>
+    <string name="confirm_time">Confirm Time</string>
+    <string name="minute">minute</string>
+    <string name="hour">hour</string>
+    <string name="every_minute">Every Minute</string>
+    <string name="every_hour">Every Hour</string>
+    <string name="every">Every</string>
+    <string name="every_hour_one_minute">Every Hour &amp; One Minute</string>
+    <string name="every_hour_and">Every Hour &amp;</string>
+    <string name="hour_and_one_minute">Hour &amp; One Minute</string>
+    <string name="and">&amp;</string>
+
+    <string name="hello">Hello Jakode</string>
+
 </resources>
