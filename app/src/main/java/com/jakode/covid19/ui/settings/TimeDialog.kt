@@ -38,7 +38,7 @@ class TimeDialog : BottomSheetDialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = DataBindingUtil.inflate(inflater, R.layout.dialog_time, container, false)
         initialize()
         return binding.root

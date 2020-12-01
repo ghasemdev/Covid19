@@ -113,15 +113,14 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), OnBackPressedList
 
             suggestFriends.setOnClickListener { shareApp() }
 
-            contactUs.setOnClickListener { sendEmail() }
+            contactUs.setOnClickListener { sendComment() }
 
             version.setOnClickListener { easterEgg() }
         }
     }
 
     private fun shareApp() {
-        val url = "myket://details?id=com.jakode.covid19"
-        Intents.sendText(requireContext(), url)
+        Intents.sendText(requireContext())
     }
 
     private fun easterEgg() {
@@ -143,13 +142,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), OnBackPressedList
         }
     }
 
-    private fun sendEmail() {
-        Intents.composeEmail(
-            requireContext(),
-            arrayOf("jakode2020@gmail.com"),
-            subject = "contactUs",
-            text = getString(R.string.hello)
-        )
+    private fun sendComment() {
+        Intents.sendComment(requireContext())
     }
 
     private fun languageDialog() {
@@ -207,7 +201,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), OnBackPressedList
                 ) {
                     handlers.onClose()
                     activity?.let {
-                        viewModel.saveDuration(((hour * 3600) + (minute * 60)).toLong())
+                        viewModel.saveDuration((hour.times(60) + minute).times(60).toLong())
                     }
                 }
 

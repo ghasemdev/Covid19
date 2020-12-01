@@ -31,7 +31,7 @@ class LanguageDialog : BottomSheetDialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = DataBindingUtil.inflate(inflater, R.layout.dialog_language, container, false)
         onLanguageDialogListener = args.onLanguageDialogListener
         return binding.root
